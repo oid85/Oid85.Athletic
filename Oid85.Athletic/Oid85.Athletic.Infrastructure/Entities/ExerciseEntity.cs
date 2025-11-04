@@ -2,7 +2,7 @@
 
 namespace Oid85.Athletic.Infrastructure.Entities
 {
-    public class ExerciseEntity : AuditableEntity
+    public class ExerciseEntity : BaseEntity
     {
     }
 }
