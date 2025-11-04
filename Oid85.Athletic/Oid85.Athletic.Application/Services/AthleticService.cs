@@ -4,7 +4,7 @@ using Oid85.Athletic.Core.Responses;
 
 namespace Oid85.Athletic.Application.Services
 {
-    public class TrainingService : ITrainingService
+    public class AthleticService : IAthleticService
     {
         public Task<ExerciseListResponse> GetExerciseListAsync(ExerciseListRequest request)
         {

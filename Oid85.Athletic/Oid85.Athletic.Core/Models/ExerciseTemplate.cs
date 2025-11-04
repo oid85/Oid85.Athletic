@@ -2,7 +2,7 @@
 
 namespace Oid85.Athletic.Core.Models
 {
-    public class Exercise : BaseModel
+    public class ExerciseTemplate : BaseModel
     {
 
     }

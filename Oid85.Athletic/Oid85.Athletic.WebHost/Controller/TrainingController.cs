@@ -10,7 +10,7 @@ namespace Oid85.Athletic.WebHost.Controller;
 [Route("api/training")]
 [ApiController]
 public class TrainingController(
-    ITrainingService trainingService
+    IAthleticService trainingService
     )
     : AthleticBaseController
 {

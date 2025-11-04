@@ -9,6 +9,6 @@ public static class ServiceCollectionExtensions
     public static void ConfigureApplicationServices(
         this IServiceCollection services)
     {
-        services.AddTransient<ITrainingService, TrainingService>();
+        services.AddTransient<IAthleticService, AthleticService>();
     }
 }

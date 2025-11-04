@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Common.KnownConstants;
-using Oid85.Athletic.Infrastructure.Interceptors;
+using Oid85.Athletic.Infrastructure.Repositories;
 
 namespace Oid85.Athletic.Infrastructure.Extensions;
 
@@ -13,16 +13,10 @@ public static class ServiceCollectionExtensions
     public static void ConfigureInfrastructure(
         this IServiceCollection services,
         IConfiguration configuration)
-    {
-        services.AddSingleton<UpdateAuditableEntitiesInterceptor>();
-                
+    {    
         services.AddDbContextPool<AthleticContext>((serviceProvider, options) =>
-        {
-            var updateInterceptor = serviceProvider.GetRequiredService<UpdateAuditableEntitiesInterceptor>();
-                
-            options
-                .UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresFinMarketConnectionString)!)
-                .AddInterceptors(updateInterceptor);
+        {  
+            options.UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresFinMarketConnectionString)!);
         });
 
         services.AddPooledDbContextFactory<AthleticContext>(options =>
@@ -30,7 +24,10 @@ public static class ServiceCollectionExtensions
                 .UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresFinMarketConnectionString)!)
                 .EnableServiceProviderCaching(false), poolSize: 32);
 
+        services.AddTransient<IExerciseTemplateRepository, ExerciseTemplateRepository>();
         services.AddTransient<IExerciseRepository, ExerciseRepository>();
+        services.AddTransient<ITrainingRepository, TrainingRepository>();
+        services.AddTransient<IPlanRepository, PlanRepository>();
     }
 
     public static async Task ApplyMigrations(this IHost host)
