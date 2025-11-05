@@ -7,8 +7,8 @@ namespace Oid85.Athletic.Infrastructure.Entities
     {
         public DateOnly Date { get; set; }
 
-        public TrainingEntity MorningTraining { get; set; }
+        public TrainingEntity? MorningTraining { get; set; }
 
-        public TrainingEntity DayTraining { get; set; }
+        public TrainingEntity? DayTraining { get; set; }
     }
 }
