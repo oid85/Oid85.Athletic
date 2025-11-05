@@ -28,6 +28,9 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IExerciseRepository, ExerciseRepository>();
         services.AddTransient<ITrainingRepository, TrainingRepository>();
         services.AddTransient<IPlanRepository, PlanRepository>();
+
+        var mapsterConfig = new InfrastructureMapsterConfig();
+        services.AddSingleton<InfrastructureMapsterConfig>();
     }
 
     public static async Task ApplyMigrations(this IHost host)
