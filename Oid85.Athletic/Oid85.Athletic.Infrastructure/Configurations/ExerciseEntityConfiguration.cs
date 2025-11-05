@@ -10,17 +10,5 @@ internal class ExerciseEntityConfiguration : EntityConfigurationBase<ExerciseEnt
     public override void Configure(EntityTypeBuilder<ExerciseEntity> builder)
     {
         base.Configure(builder);
-        
-        builder.ToTable("exercises", KnownDatabaseSchemas.Default);
-
-        builder
-            .HasOne(x => x.ExerciseTemplate)
-            .WithMany()
-            .HasForeignKey(x => x.ExerciseTemplateId);
-
-        builder
-            .HasOne(x => x.Training)
-            .WithMany()
-            .HasForeignKey(x => x.TrainingId);
     }
 }

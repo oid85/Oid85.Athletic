@@ -15,7 +15,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 name: "public");
 
             migrationBuilder.CreateTable(
-                name: "exercise_templates",
+                name: "ExerciseTemplateEntities",
                 schema: "public",
                 columns: table => new
                 {
@@ -25,11 +25,11 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_exercise_templates", x => x.id);
+                    table.PrimaryKey("PK_ExerciseTemplateEntities", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "trainings",
+                name: "TrainingEntities",
                 schema: "public",
                 columns: table => new
                 {
@@ -39,11 +39,11 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_trainings", x => x.id);
+                    table.PrimaryKey("PK_TrainingEntities", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "exercises",
+                name: "ExerciseEntities",
                 schema: "public",
                 columns: table => new
                 {
@@ -51,36 +51,29 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     CountIterations = table.Column<int>(type: "integer", nullable: false),
                     Order = table.Column<int>(type: "integer", nullable: false),
                     ExerciseTemplateId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TrainingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    TrainingEntityId = table.Column<Guid>(type: "uuid", nullable: true)
+                    TrainingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_exercises", x => x.id);
+                    table.PrimaryKey("PK_ExerciseEntities", x => x.id);
                     table.ForeignKey(
-                        name: "FK_exercises_exercise_templates_ExerciseTemplateId",
+                        name: "FK_ExerciseEntities_ExerciseTemplateEntities_ExerciseTemplateId",
                         column: x => x.ExerciseTemplateId,
                         principalSchema: "public",
-                        principalTable: "exercise_templates",
+                        principalTable: "ExerciseTemplateEntities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_exercises_trainings_TrainingEntityId",
-                        column: x => x.TrainingEntityId,
-                        principalSchema: "public",
-                        principalTable: "trainings",
-                        principalColumn: "id");
-                    table.ForeignKey(
-                        name: "FK_exercises_trainings_TrainingId",
+                        name: "FK_ExerciseEntities_TrainingEntities_TrainingId",
                         column: x => x.TrainingId,
                         principalSchema: "public",
-                        principalTable: "trainings",
+                        principalTable: "TrainingEntities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "plans",
+                name: "PlanEntities",
                 schema: "public",
                 columns: table => new
                 {
@@ -91,51 +84,45 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_plans", x => x.id);
+                    table.PrimaryKey("PK_PlanEntities", x => x.id);
                     table.ForeignKey(
-                        name: "FK_plans_trainings_DayTrainingId",
+                        name: "FK_PlanEntities_TrainingEntities_DayTrainingId",
                         column: x => x.DayTrainingId,
                         principalSchema: "public",
-                        principalTable: "trainings",
+                        principalTable: "TrainingEntities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_plans_trainings_MorningTrainingId",
+                        name: "FK_PlanEntities_TrainingEntities_MorningTrainingId",
                         column: x => x.MorningTrainingId,
                         principalSchema: "public",
-                        principalTable: "trainings",
+                        principalTable: "TrainingEntities",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_exercises_ExerciseTemplateId",
+                name: "IX_ExerciseEntities_ExerciseTemplateId",
                 schema: "public",
-                table: "exercises",
+                table: "ExerciseEntities",
                 column: "ExerciseTemplateId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_exercises_TrainingEntityId",
+                name: "IX_ExerciseEntities_TrainingId",
                 schema: "public",
-                table: "exercises",
-                column: "TrainingEntityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_exercises_TrainingId",
-                schema: "public",
-                table: "exercises",
+                table: "ExerciseEntities",
                 column: "TrainingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_plans_DayTrainingId",
+                name: "IX_PlanEntities_DayTrainingId",
                 schema: "public",
-                table: "plans",
+                table: "PlanEntities",
                 column: "DayTrainingId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_plans_MorningTrainingId",
+                name: "IX_PlanEntities_MorningTrainingId",
                 schema: "public",
-                table: "plans",
+                table: "PlanEntities",
                 column: "MorningTrainingId");
         }
 
@@ -143,19 +130,19 @@ namespace Oid85.Athletic.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "exercises",
+                name: "ExerciseEntities",
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "plans",
+                name: "PlanEntities",
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "exercise_templates",
+                name: "ExerciseTemplateEntities",
                 schema: "public");
 
             migrationBuilder.DropTable(
-                name: "trainings",
+                name: "TrainingEntities",
                 schema: "public");
         }
     }

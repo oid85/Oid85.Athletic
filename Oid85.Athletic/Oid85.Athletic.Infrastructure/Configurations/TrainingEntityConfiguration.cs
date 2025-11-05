@@ -10,7 +10,5 @@ internal class TrainingEntityConfiguration : EntityConfigurationBase<TrainingEnt
     public override void Configure(EntityTypeBuilder<TrainingEntity> builder)
     {
         base.Configure(builder);
-        
-        builder.ToTable("trainings", KnownDatabaseSchemas.Default);
     }
 }

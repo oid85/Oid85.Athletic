@@ -6,10 +6,10 @@ namespace Oid85.Athletic.Infrastructure.Entities
 {
     public class TrainingEntity : BaseEntity
     {
-        [Column("name"), MaxLength(500)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
-        [Column("count_cycles")]
-        public int CountCycles { get; set; }     
+        public int CountCycles { get; set; }
+
+        public ICollection<ExerciseEntity> Exercises { get; set; }
     }
 }

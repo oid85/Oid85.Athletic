@@ -32,20 +32,16 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int>("CountIterations")
-                        .HasColumnType("integer")
-                        .HasColumnName("count_iterations");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("ExerciseTemplateId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("exercise_template_id");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Order")
-                        .HasColumnType("integer")
-                        .HasColumnName("order");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TrainingId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("training_id");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -53,7 +49,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
 
                     b.HasIndex("TrainingId");
 
-                    b.ToTable("exercises", "public");
+                    b.ToTable("ExerciseEntities", "public");
                 });
 
             modelBuilder.Entity("Oid85.Athletic.Infrastructure.Entities.ExerciseTemplateEntity", b =>
@@ -66,19 +62,15 @@ namespace Oid85.Athletic.Infrastructure.Migrations
 
                     b.Property<string>("Equipment")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("equipment");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("name");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("exercise_templates", "public");
+                    b.ToTable("ExerciseTemplateEntities", "public");
                 });
 
             modelBuilder.Entity("Oid85.Athletic.Infrastructure.Entities.PlanEntity", b =>
@@ -90,16 +82,13 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateOnly>("Date")
-                        .HasColumnType("date")
-                        .HasColumnName("date");
+                        .HasColumnType("date");
 
                     b.Property<Guid>("DayTrainingId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("day_training_id");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("MorningTrainingId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("morning_training_id");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -107,7 +96,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
 
                     b.HasIndex("MorningTrainingId");
 
-                    b.ToTable("plans", "public");
+                    b.ToTable("PlanEntities", "public");
                 });
 
             modelBuilder.Entity("Oid85.Athletic.Infrastructure.Entities.TrainingEntity", b =>
@@ -119,18 +108,15 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<int>("CountCycles")
-                        .HasColumnType("integer")
-                        .HasColumnName("count_cycles");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)")
-                        .HasColumnName("name");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("trainings", "public");
+                    b.ToTable("TrainingEntities", "public");
                 });
 
             modelBuilder.Entity("Oid85.Athletic.Infrastructure.Entities.ExerciseEntity", b =>
@@ -142,7 +128,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Oid85.Athletic.Infrastructure.Entities.TrainingEntity", "Training")
-                        .WithMany()
+                        .WithMany("Exercises")
                         .HasForeignKey("TrainingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -169,6 +155,11 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     b.Navigation("DayTraining");
 
                     b.Navigation("MorningTraining");
+                });
+
+            modelBuilder.Entity("Oid85.Athletic.Infrastructure.Entities.TrainingEntity", b =>
+                {
+                    b.Navigation("Exercises");
                 });
 #pragma warning restore 612, 618
         }

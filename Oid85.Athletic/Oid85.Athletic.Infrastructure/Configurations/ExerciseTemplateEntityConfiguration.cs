@@ -10,7 +10,5 @@ internal class ExerciseTemplateEntityConfiguration : EntityConfigurationBase<Exe
     public override void Configure(EntityTypeBuilder<ExerciseTemplateEntity> builder)
     {
         base.Configure(builder);
-        
-        builder.ToTable("exercise_templates", KnownDatabaseSchemas.Default);
     }
 }

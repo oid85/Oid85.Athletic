@@ -6,10 +6,8 @@ namespace Oid85.Athletic.Infrastructure.Entities
 {
     public class ExerciseTemplateEntity : BaseEntity
     {
-        [Column("name"), MaxLength(500)]
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
-        [Column("equipment"), MaxLength(500)]
-        public string Equipment { get; set; } = string.Empty;
+        public string Equipment { get; set; }
     }
 }
