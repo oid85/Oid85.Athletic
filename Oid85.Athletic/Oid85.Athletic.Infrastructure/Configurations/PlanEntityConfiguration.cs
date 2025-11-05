@@ -12,5 +12,15 @@ internal class PlanEntityConfiguration : EntityConfigurationBase<PlanEntity>
         base.Configure(builder);
         
         builder.ToTable("plans", KnownDatabaseSchemas.Default);
+
+        builder
+            .HasOne(x => x.MorningTraining)
+            .WithMany()
+            .HasForeignKey(x => x.MorningTrainingId);
+
+        builder
+            .HasOne(x => x.DayTraining)
+            .WithMany()
+            .HasForeignKey(x => x.DayTrainingId);
     }
 }

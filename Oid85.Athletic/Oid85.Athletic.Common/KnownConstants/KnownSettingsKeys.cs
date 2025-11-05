@@ -2,7 +2,7 @@
 
 public static class KnownSettingsKeys
 {
-    public const string PostgresFinMarketConnectionString = "Postgres:FinMarketConnectionString";
+    public const string PostgresAthleticConnectionString = "Postgres:AthleticConnectionString";
     public const string PostgresApplyMigrationsOnStart = "Postgres:ApplyMigrationsOnStart";
     public const string DeployPort = "DeployPort";
 }

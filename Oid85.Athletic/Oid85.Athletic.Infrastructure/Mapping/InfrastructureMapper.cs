@@ -14,6 +14,6 @@ public static class InfrastructureMapper
     public static Exercise Map(ExerciseEntity entity) =>
         new()
         {
-            
+            Id = entity.Id
         };   
 }

@@ -16,12 +16,12 @@ public static class ServiceCollectionExtensions
     {    
         services.AddDbContextPool<AthleticContext>((serviceProvider, options) =>
         {  
-            options.UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresFinMarketConnectionString)!);
+            options.UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresAthleticConnectionString)!);
         });
 
         services.AddPooledDbContextFactory<AthleticContext>(options =>
             options
-                .UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresFinMarketConnectionString)!)
+                .UseNpgsql(configuration.GetValue<string>(KnownSettingsKeys.PostgresAthleticConnectionString)!)
                 .EnableServiceProviderCaching(false), poolSize: 32);
 
         services.AddTransient<IExerciseTemplateRepository, ExerciseTemplateRepository>();
