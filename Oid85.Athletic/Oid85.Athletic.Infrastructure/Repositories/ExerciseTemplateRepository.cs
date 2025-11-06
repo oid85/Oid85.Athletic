@@ -54,7 +54,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await using var context = await contextFactory.CreateDbContextAsync();
             var entities = context.ExerciseTemplateEntities.AsQueryable();
 
-            if (equipment is not null)
+            if (!string.IsNullOrEmpty(equipment))
                 entities = entities.Where(x => x.Equipment == equipment);
 
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
