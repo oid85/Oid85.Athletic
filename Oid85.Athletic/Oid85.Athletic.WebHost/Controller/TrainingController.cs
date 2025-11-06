@@ -12,8 +12,8 @@ namespace Oid85.Athletic.WebHost.Controller;
 /// </summary>
 [Route("api/trainings")]
 [ApiController]
-public class TrainingTemplateController(
-    ITrainingService athleticService)
+public class TrainingController(
+    ITrainingService trainingService)
     : AthleticBaseController
 {
     /// <summary>
@@ -26,7 +26,7 @@ public class TrainingTemplateController(
     public Task<IActionResult> GetTrainingListAsync(
         [FromBody] GetTrainingListRequest request) =>
         GetResponseAsync(
-            () => athleticService.GetTrainingListAsync(request),
+            () => trainingService.GetTrainingListAsync(request),
             result => new BaseResponse<GetTrainingListResponse> { Result = result });
 
     /// <summary>
@@ -39,7 +39,7 @@ public class TrainingTemplateController(
     public Task<IActionResult> CreateTrainingAsync(
         [FromBody] CreateTrainingRequest request) =>
         GetResponseAsync(
-            () => athleticService.CreateTrainingAsync(request),
+            () => trainingService.CreateTrainingAsync(request),
             result => new BaseResponse<CreateTrainingResponse> { Result = result });
 
     /// <summary>
@@ -52,7 +52,7 @@ public class TrainingTemplateController(
     public Task<IActionResult> EditTrainingAsync(
         [FromBody] EditTrainingRequest request) =>
         GetResponseAsync(
-            () => athleticService.EditTrainingAsync(request),
+            () => trainingService.EditTrainingAsync(request),
             result => new BaseResponse<EditTrainingResponse> { Result = result });
 
     /// <summary>
@@ -65,6 +65,6 @@ public class TrainingTemplateController(
     public Task<IActionResult> DeleteTrainingAsync(
         [FromBody] DeleteTrainingRequest request) =>
         GetResponseAsync(
-            () => athleticService.DeleteTrainingAsync(request),
+            () => trainingService.DeleteTrainingAsync(request),
             result => new BaseResponse<DeleteTrainingResponse> { Result = result });
 }

@@ -13,7 +13,7 @@ namespace Oid85.Athletic.WebHost.Controller;
 [Route("api/exercise-templates")]
 [ApiController]
 public class ExerciseTemplateController(
-    IExerciseTemplateService athleticService)
+    IExerciseTemplateService exerciseTemplateService)
     : AthleticBaseController
 {
     /// <summary>
@@ -26,7 +26,7 @@ public class ExerciseTemplateController(
     public Task<IActionResult> GetExerciseTemplateListAsync(
         [FromBody] GetExerciseTemplateListRequest request) =>
         GetResponseAsync(
-            () => athleticService.GetExerciseTemplateListAsync(request),
+            () => exerciseTemplateService.GetExerciseTemplateListAsync(request),
             result => new BaseResponse<GetExerciseTemplateListResponse> { Result = result });
 
     /// <summary>
@@ -39,7 +39,7 @@ public class ExerciseTemplateController(
     public Task<IActionResult> CreateExerciseTemplateAsync(
         [FromBody] CreateExerciseTemplateRequest request) =>
         GetResponseAsync(
-            () => athleticService.CreateExerciseTemplateAsync(request),
+            () => exerciseTemplateService.CreateExerciseTemplateAsync(request),
             result => new BaseResponse<CreateExerciseTemplateResponse> { Result = result });
 
     /// <summary>
@@ -52,7 +52,7 @@ public class ExerciseTemplateController(
     public Task<IActionResult> EditExerciseTemplateAsync(
         [FromBody] EditExerciseTemplateRequest request) =>
         GetResponseAsync(
-            () => athleticService.EditExerciseTemplateAsync(request),
+            () => exerciseTemplateService.EditExerciseTemplateAsync(request),
             result => new BaseResponse<EditExerciseTemplateResponse> { Result = result });
 
     /// <summary>
@@ -65,6 +65,6 @@ public class ExerciseTemplateController(
     public Task<IActionResult> DeleteExerciseTemplateAsync(
         [FromBody] DeleteExerciseTemplateRequest request) =>
         GetResponseAsync(
-            () => athleticService.DeleteExerciseTemplateAsync(request),
+            () => exerciseTemplateService.DeleteExerciseTemplateAsync(request),
             result => new BaseResponse<DeleteExerciseTemplateResponse> { Result = result });
 }
