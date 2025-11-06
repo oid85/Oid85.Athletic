@@ -3,7 +3,7 @@
     /// <summary>
     /// Ответ на запрос получения списка шаблонов упражнений
     /// </summary>
-    public class ExerciseTemplateListResponse
+    public class GetExerciseTemplateListResponse
     {
         /// <summary>
         /// Список шаблонов упражнений
@@ -12,7 +12,7 @@
     }
 
     /// <summary>
-    /// Шаблонов упражнения
+    /// Шаблон упражнения
     /// </summary>
     public class ExerciseTemplateListItem
     {

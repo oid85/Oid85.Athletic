@@ -36,11 +36,16 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> EditExerciseTemplateAsync(ExerciseTemplate model)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
-            var entity = await context.ExerciseTemplateEntities.SingleOrDefaultAsync(x => x.Id == model.Id);
-            model.Adapt(entity);
+            await context.ExerciseTemplateEntities
+                .Where(x => x.Id == model.Id)
+                .ExecuteUpdateAsync(x => x
+                        .SetProperty(entity => entity.Name, model.Name)
+                        .SetProperty(entity => entity.Muscles, model.Muscles)
+                        .SetProperty(entity => entity.Equipment, model.Equipment));
+
             await context.SaveChangesAsync();
 
-            return entity!.Id;
+            return model.Id;
         }
 
         /// <inheritdoc/>
@@ -54,10 +59,9 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
-            if (filteredEntities is null)
-                return [];
-
-            return entities.Select(x => x.Adapt<ExerciseTemplate>()).ToList();
+            return filteredEntities is null
+                ? []
+                : entities.Select(x => x.Adapt<ExerciseTemplate>()).ToList();
         }
     }
 }

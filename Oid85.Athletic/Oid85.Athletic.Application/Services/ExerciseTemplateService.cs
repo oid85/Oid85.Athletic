@@ -9,9 +9,9 @@ using Oid85.Athletic.Core.Responses;
 namespace Oid85.Athletic.Application.Services
 {
     /// <inheritdoc/>
-    public class AthleticService(
+    public class ExerciseTemplateService(
         IExerciseTemplateRepository exerciseTemplateRepository) 
-        : IAthleticService
+        : IExerciseTemplateService
     {
         /// <inheritdoc/>
         public async Task<CreateExerciseTemplateResponse> CreateExerciseTemplateAsync(CreateExerciseTemplateRequest request)
@@ -19,10 +19,9 @@ namespace Oid85.Athletic.Application.Services
             var model = request.Adapt<ExerciseTemplate>();
             var id = await exerciseTemplateRepository.CreateExerciseTemplateAsync(model);
 
-            if (id is null)
-                return new();
-
-            return new() { Id = id };
+            return id is null 
+                ? new() 
+                : new() { Id = id };
         }
 
         /// <inheritdoc/>
@@ -30,10 +29,9 @@ namespace Oid85.Athletic.Application.Services
         {
             var id = await exerciseTemplateRepository.DeleteExerciseTemplateAsync(request.Id);
 
-            if (id is null)
-                return new();
-
-            return new() { Id = id };
+            return id is null 
+                ? new() 
+                : new() { Id = id };
         }
 
         /// <inheritdoc/>
@@ -42,25 +40,19 @@ namespace Oid85.Athletic.Application.Services
             var model = request.Adapt<ExerciseTemplate>();
             var id = await exerciseTemplateRepository.EditExerciseTemplateAsync(model);
 
-            if (id is null)
-                return new();
-
-            return new() { Id = id };
+            return id is null 
+                ? new() 
+                : new() { Id = id };
         }
 
         /// <inheritdoc/>
-        public async Task<ExerciseTemplateListResponse> GetExerciseTemplateListAsync(ExerciseTemplateListRequest request)
+        public async Task<GetExerciseTemplateListResponse> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request)
         {
-            var exerciseTemplates = await exerciseTemplateRepository
-                .GetExerciseTemplatesAsync(request.Equipment);
+            var exerciseTemplates = await exerciseTemplateRepository.GetExerciseTemplatesAsync(request.Equipment);
 
-            if (exerciseTemplates is null)
-                return new();
-
-            return new()
-            {
-                ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItem>()).ToList()
-            };
+            return exerciseTemplates is null 
+                ? new() 
+                : new() { ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItem>()).ToList() };
         }
     }
 }

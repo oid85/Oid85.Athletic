@@ -13,21 +13,21 @@ namespace Oid85.Athletic.WebHost.Controller;
 [Route("api/exercise-templates")]
 [ApiController]
 public class ExerciseTemplateController(
-    IAthleticService athleticService)
+    IExerciseTemplateService athleticService)
     : AthleticBaseController
 {
     /// <summary>
     /// Получить список шаблонов упражнений
     /// </summary>
     [HttpPost("list")]
-    [ProducesResponseType(typeof(BaseResponse<ExerciseTemplateListResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(BaseResponse<ExerciseTemplateListResponse>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(BaseResponse<ExerciseTemplateListResponse>), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(BaseResponse<GetExerciseTemplateListResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<GetExerciseTemplateListResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<GetExerciseTemplateListResponse>), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> GetExerciseTemplateListAsync(
-        [FromBody] ExerciseTemplateListRequest request) =>
+        [FromBody] GetExerciseTemplateListRequest request) =>
         GetResponseAsync(
             () => athleticService.GetExerciseTemplateListAsync(request),
-            result => new BaseResponse<ExerciseTemplateListResponse> { Result = result });
+            result => new BaseResponse<GetExerciseTemplateListResponse> { Result = result });
 
     /// <summary>
     /// Создать шаблон упражнения

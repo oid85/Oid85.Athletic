@@ -5,9 +5,9 @@ using Oid85.Athletic.Core.Responses;
 namespace Oid85.Athletic.Application.Interfaces.Services
 {
     /// <summary>
-    /// Сервис работы с упражнениями и тренировками
+    /// Сервис работы с шаблонами упражнений
     /// </summary>
-    public interface IAthleticService
+    public interface IExerciseTemplateService
     {
         /// <summary>
         /// Создание шаблона упражнения
@@ -27,6 +27,6 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// <summary>
         /// Получение списка шаблонов упражнений
         /// </summary>
-        Task<ExerciseTemplateListResponse> GetExerciseTemplateListAsync(ExerciseTemplateListRequest request);
+        Task<GetExerciseTemplateListResponse> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request);
     }
 }

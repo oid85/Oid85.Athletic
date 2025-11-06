@@ -3,7 +3,7 @@
     /// <summary>
     /// Запрос на получение списка шаблонов упражнений
     /// </summary>
-    public class ExerciseTemplateListRequest
+    public class GetExerciseTemplateListRequest
     {
         /// <summary>
         /// Оборудование
