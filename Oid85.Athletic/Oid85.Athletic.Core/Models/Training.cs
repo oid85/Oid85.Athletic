@@ -2,12 +2,24 @@
 
 namespace Oid85.Athletic.Core.Models
 {
+    /// <summary>
+    /// Тренировка
+    /// </summary>
     public class Training : BaseModel
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        public required string Name { get; set; }
 
-        public int CountCycles { get; set; }
+        /// <summary>
+        /// Циклы
+        /// </summary>
+        public string? Cycles { get; set; }
 
-        public List<Exercise> Exercises { get; set; }
+        /// <summary>
+        /// Список упражнений
+        /// </summary>
+        public List<Exercise>? Exercises { get; set; }
     }
 }

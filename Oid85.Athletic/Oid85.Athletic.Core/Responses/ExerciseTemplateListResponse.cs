@@ -1,0 +1,34 @@
+﻿namespace Oid85.Athletic.Core.Responses
+{
+    /// <summary>
+    /// Ответ на запрос получения списка шаблонов упражнений
+    /// </summary>
+    public class ExerciseTemplateListResponse
+    {
+        /// <summary>
+        /// Список шаблонов упражнений
+        /// </summary>
+        public List<ExerciseTemplateListItem> ExerciseTemplates { get; set; } = [];
+    }
+
+    /// <summary>
+    /// Шаблонов упражнения
+    /// </summary>
+    public class ExerciseTemplateListItem
+    {
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Задействованные мышцы
+        /// </summary>
+        public string Muscles { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Оборудование
+        /// </summary>
+        public string Equipment { get; set; } = string.Empty;
+    }
+}

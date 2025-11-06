@@ -4,12 +4,26 @@ using Oid85.Athletic.Infrastructure.Entities.Base;
 
 namespace Oid85.Athletic.Infrastructure.Entities
 {
+    /// <summary>
+    /// Тренировка
+    /// </summary>
     public class TrainingEntity : BaseEntity
     {
-        public string Name { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
+        [MaxLength(500)]
+        public required string Name { get; set; }
 
-        public int CountCycles { get; set; }
+        /// <summary>
+        /// Циклы
+        /// </summary>
+        [MaxLength(500)]
+        public string? Cycles { get; set; }
 
-        public ICollection<ExerciseEntity> Exercises { get; set; }
+        /// <summary>
+        /// Список упражнений
+        /// </summary>
+        public ICollection<ExerciseEntity>? Exercises { get; set; }
     }
 }

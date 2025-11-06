@@ -12,8 +12,8 @@ using Oid85.Athletic.Infrastructure;
 namespace Oid85.Athletic.Infrastructure.Migrations
 {
     [DbContext(typeof(AthleticContext))]
-    [Migration("20251105145114_SetColumnNullableInPlanTable")]
-    partial class SetColumnNullableInPlanTable
+    [Migration("20251106062408_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,17 +34,20 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<int>("CountIterations")
+                    b.Property<int?>("CountIterations")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("ExerciseTemplateId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("Order")
+                    b.Property<int?>("Order")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("TrainingId")
                         .HasColumnType("uuid");
+
+                    b.Property<double?>("Weight")
+                        .HasColumnType("decimal(4,1)");
 
                     b.HasKey("Id");
 
@@ -64,12 +67,17 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Equipment")
-                        .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Muscles")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 
@@ -110,12 +118,14 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<int>("CountCycles")
-                        .HasColumnType("integer");
+                    b.Property<string>("Cycles")
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.HasKey("Id");
 

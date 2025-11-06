@@ -4,8 +4,29 @@ using Oid85.Athletic.Core.Responses;
 
 namespace Oid85.Athletic.Application.Interfaces.Services
 {
+    /// <summary>
+    /// Сервис работы с упражнениями и тренировками
+    /// </summary>
     public interface IAthleticService
     {
-        Task<ExerciseListResponse> GetExerciseListAsync(ExerciseListRequest request);
+        /// <summary>
+        /// Создание шаблона упражнения
+        /// </summary>
+        Task<CreateExerciseTemplateResponse> CreateExerciseTemplateAsync(CreateExerciseTemplateRequest request);
+
+        /// <summary>
+        /// Удаление шаблона упражнения
+        /// </summary>
+        Task<DeleteExerciseTemplateResponse> DeleteExerciseTemplateAsync(DeleteExerciseTemplateRequest request);
+
+        /// <summary>
+        /// Редактирование шаблона упражнения
+        /// </summary>
+        Task<EditExerciseTemplateResponse> EditExerciseTemplateAsync(EditExerciseTemplateRequest request);
+
+        /// <summary>
+        /// Получение списка шаблонов упражнений
+        /// </summary>
+        Task<ExerciseTemplateListResponse> GetExerciseTemplateListAsync(ExerciseTemplateListRequest request);
     }
 }

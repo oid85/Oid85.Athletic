@@ -1,30 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Oid85.Athletic.Infrastructure.Entities.Base;
-
-namespace Oid85.Athletic.Infrastructure.Entities
+﻿namespace Oid85.Athletic.Core.Requests
 {
     /// <summary>
-    /// Шаблон упражнения
+    /// Запрос на редактирование шаблона упражнения
     /// </summary>
-    public class ExerciseTemplateEntity : BaseEntity
+    public class EditExerciseTemplateRequest
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public required Guid Id { get; set; }
+
         /// <summary>
         /// Наименование
         /// </summary>
-        [MaxLength(500)]
         public required string Name { get; set; }
 
         /// <summary>
         /// Задействованные мышцы
         /// </summary>
-        [MaxLength(500)]
         public string? Muscles { get; set; }
 
         /// <summary>
         /// Оборудование
         /// </summary>
-        [MaxLength(500)]
         public string? Equipment { get; set; }
     }
 }

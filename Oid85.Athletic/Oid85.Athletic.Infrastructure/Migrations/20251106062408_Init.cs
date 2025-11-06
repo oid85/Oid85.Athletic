@@ -20,8 +20,9 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    Equipment = table.Column<string>(type: "text", nullable: false)
+                    Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Muscles = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
+                    Equipment = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -34,8 +35,8 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    CountCycles = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Cycles = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,8 +49,9 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    CountIterations = table.Column<int>(type: "integer", nullable: false),
-                    Order = table.Column<int>(type: "integer", nullable: false),
+                    CountIterations = table.Column<int>(type: "integer", nullable: true),
+                    Order = table.Column<int>(type: "integer", nullable: true),
+                    Weight = table.Column<double>(type: "numeric(4,1)", nullable: true),
                     ExerciseTemplateId = table.Column<Guid>(type: "uuid", nullable: false),
                     TrainingId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -79,8 +81,8 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
-                    MorningTrainingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    DayTrainingId = table.Column<Guid>(type: "uuid", nullable: false)
+                    MorningTrainingId = table.Column<Guid>(type: "uuid", nullable: true),
+                    DayTrainingId = table.Column<Guid>(type: "uuid", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -90,15 +92,13 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         column: x => x.DayTrainingId,
                         principalSchema: "public",
                         principalTable: "TrainingEntities",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_PlanEntities_TrainingEntities_MorningTrainingId",
                         column: x => x.MorningTrainingId,
                         principalSchema: "public",
                         principalTable: "TrainingEntities",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateIndex(
