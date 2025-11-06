@@ -7,6 +7,9 @@ using Oid85.Athletic.WebHost.Controller.Base;
 
 namespace Oid85.Athletic.WebHost.Controller;
 
+/// <summary>
+/// Шаблоны упражнений
+/// </summary>
 [Route("api/exercise-templates")]
 [ApiController]
 public class ExerciseTemplateController(
