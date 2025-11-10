@@ -48,7 +48,7 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<GetExerciseTemplateListResponse> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request)
         {
-            var exerciseTemplates = await exerciseTemplateRepository.GetExerciseTemplatesAsync(request.Equipment);
+            var exerciseTemplates = (await exerciseTemplateRepository.GetExerciseTemplatesAsync(request.Equipment)).OrderBy(x => x.Name).ToList();
 
             return exerciseTemplates is null 
                 ? new() 

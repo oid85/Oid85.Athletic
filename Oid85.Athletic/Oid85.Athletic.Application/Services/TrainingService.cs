@@ -48,7 +48,7 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<GetTrainingListResponse> GetTrainingListAsync(GetTrainingListRequest request)
         {
-            var trainings = await trainingRepository.GetTrainingsAsync();
+            var trainings = (await trainingRepository.GetTrainingsAsync()).OrderBy(x => x.Name).ToList(); ;
 
             return trainings is null 
                 ? new() 

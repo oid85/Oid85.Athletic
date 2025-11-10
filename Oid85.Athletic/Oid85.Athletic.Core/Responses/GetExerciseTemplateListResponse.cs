@@ -17,6 +17,11 @@
     public class ExerciseTemplateListItem
     {
         /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Наименование
         /// </summary>
         public string Name { get; set; } = string.Empty;
