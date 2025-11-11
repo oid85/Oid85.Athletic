@@ -52,7 +52,7 @@ namespace Oid85.Athletic.Application.Services
 
             return training is null
                 ? new()
-                : new() { Training = training.Adapt<GetTrainingResponse>() };
+                : new() { Training = training.Adapt<GetTrainingItemResponse>() };
         }
 
         /// <inheritdoc/>
