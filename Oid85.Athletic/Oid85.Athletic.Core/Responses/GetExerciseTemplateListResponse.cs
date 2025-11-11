@@ -29,11 +29,11 @@
         /// <summary>
         /// Задействованные мышцы
         /// </summary>
-        public string Muscles { get; set; } = string.Empty;
+        public string? Muscles { get; set; }
 
         /// <summary>
         /// Оборудование
         /// </summary>
-        public string Equipment { get; set; } = string.Empty;
+        public string? Equipment { get; set; }
     }
 }

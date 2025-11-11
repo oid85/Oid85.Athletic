@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Common.KnownConstants;
-using Oid85.Athletic.Infrastructure.Mapping;
 using Oid85.Athletic.Infrastructure.Repositories;
 
 namespace Oid85.Athletic.Infrastructure.Extensions;
@@ -29,9 +28,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IExerciseRepository, ExerciseRepository>();
         services.AddTransient<ITrainingRepository, TrainingRepository>();
         services.AddTransient<IPlanRepository, PlanRepository>();
-
-        var mapsterConfig = new InfrastructureMapsterConfig();
-        services.AddSingleton<InfrastructureMapsterConfig>();
     }
 
     public static async Task ApplyMigrations(this IHost host)

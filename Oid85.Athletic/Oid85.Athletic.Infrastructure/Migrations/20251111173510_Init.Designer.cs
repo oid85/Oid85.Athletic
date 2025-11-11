@@ -12,7 +12,7 @@ using Oid85.Athletic.Infrastructure;
 namespace Oid85.Athletic.Infrastructure.Migrations
 {
     [DbContext(typeof(AthleticContext))]
-    [Migration("20251111165350_Init")]
+    [Migration("20251111173510_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -31,8 +31,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnName("id");
 
                     b.Property<int?>("CountIterations")
                         .HasColumnType("integer");
@@ -66,8 +65,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnName("id");
 
                     b.Property<string>("Equipment")
                         .HasMaxLength(500)
@@ -92,8 +90,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnName("id");
 
                     b.Property<DateOnly>("Date")
                         .HasColumnType("date");
@@ -118,8 +115,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("gen_random_uuid()");
+                        .HasColumnName("id");
 
                     b.Property<int?>("Cycles")
                         .HasColumnType("integer");

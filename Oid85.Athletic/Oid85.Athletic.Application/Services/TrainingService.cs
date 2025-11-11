@@ -1,7 +1,4 @@
-﻿using System.Reflection;
-using System.Xml.Linq;
-using Mapster;
-using Oid85.Athletic.Application.Interfaces.Repositories;
+﻿using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Application.Interfaces.Services;
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Core.Requests;
@@ -15,39 +12,61 @@ namespace Oid85.Athletic.Application.Services
         : ITrainingService
     {
         /// <inheritdoc/>
-        public async Task<CreateTrainingResponse> CreateTrainingAsync(CreateTrainingRequest request)
+        public async Task<CreateTrainingResponse?> CreateTrainingAsync(CreateTrainingRequest request)
         {
-            var model = request.Adapt<Training>();
+            var model = new Training
+            {
+                Name = request.Name
+            };
+
             var id = await trainingRepository.CreateTrainingAsync(model);
-            
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+
+            if (id is null)
+                return null;
+
+            var response = new CreateTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
         }
 
         /// <inheritdoc/>
-        public async Task<DeleteTrainingResponse> DeleteTrainingAsync(DeleteTrainingRequest request)
+        public async Task<DeleteTrainingResponse?> DeleteTrainingAsync(DeleteTrainingRequest request)
         {
             var id = await trainingRepository.DeleteTrainingAsync(request.Id);
-            
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+
+            var response = new DeleteTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
         }
 
         /// <inheritdoc/>
-        public async Task<EditTrainingResponse> EditTrainingAsync(EditTrainingRequest request)
+        public async Task<EditTrainingResponse?> EditTrainingAsync(EditTrainingRequest request)
         {
-            var model = request.Adapt<Training>();
+            var model = new Training
+            {
+                Id = request.Id,
+                Name = request.Name,
+                Cycles = request.Cycles
+            };
+
             var id = await trainingRepository.EditTrainingAsync(model);
 
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+            var response = new EditTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
         }
 
         /// <inheritdoc/>
-        public async Task<GetTrainingResponse> GetTrainingAsync(GetTrainingRequest request)
+        public async Task<GetTrainingResponse?> GetTrainingAsync(GetTrainingRequest request)
         {
             var training = await trainingRepository.GetTrainingByIdAsync(request.Id);
 
@@ -58,11 +77,13 @@ namespace Oid85.Athletic.Application.Services
             { 
                 Training = new GetTrainingItemResponse
                 {
+                    Id = training.Id,
                     Name = training.Name,
                     Cycles = training.Cycles,
                     Exercises = training.Exercises!
                         .Select(x => new ExerciseItemResponse
                         {
+                            Id = x.Id,
                             Name = x.ExerciseTemplate.Name,
                             CountIterations = x.CountIterations,
                             Minutes = x.Minutes,
@@ -77,13 +98,25 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task<GetTrainingListResponse> GetTrainingListAsync(GetTrainingListRequest request)
+        public async Task<GetTrainingListResponse?> GetTrainingListAsync(GetTrainingListRequest request)
         {
-            var trainings = (await trainingRepository.GetTrainingsAsync()).OrderBy(x => x.Name).ToList();
+            var trainings = await trainingRepository.GetTrainingsAsync();
 
-            return trainings is null 
-                ? new() 
-                : new() { Trainings = trainings.Select(x => x.Adapt<TrainingListItemResponse>()).ToList() };
+            if (trainings is null)
+                return null;
+
+            var response = new GetTrainingListResponse()
+            {
+                Trainings = trainings
+                    .Select(x => new TrainingListItemResponse
+                    {
+                        Id = x.Id,
+                        Name = x.Name
+                    })
+                    .ToList()
+            };
+
+            return response;
         }
     }
 }

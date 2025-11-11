@@ -22,6 +22,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             var entity = new ExerciseEntity
             { 
+                Id = Guid.NewGuid(),
                 ExerciseTemplate = exerciseTemplateEntity, 
                 Training = trainingEntity 
             };

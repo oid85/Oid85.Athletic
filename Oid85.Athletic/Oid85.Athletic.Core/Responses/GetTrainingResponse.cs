@@ -19,6 +19,11 @@ namespace Oid85.Athletic.Core.Responses
     public class GetTrainingItemResponse
     {
         /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Наименование
         /// </summary>
         public string Name { get; set; } = string.Empty;
@@ -39,6 +44,11 @@ namespace Oid85.Athletic.Core.Responses
     /// </summary>
     public class ExerciseItemResponse
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Наименование
         /// </summary>

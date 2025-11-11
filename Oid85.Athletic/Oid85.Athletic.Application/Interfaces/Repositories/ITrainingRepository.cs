@@ -29,11 +29,11 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         /// Получить тренировку
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        Task<Training> GetTrainingByIdAsync(Guid id);
+        Task<Training?> GetTrainingByIdAsync(Guid id);
 
         /// <summary>
         /// Получить список тренировок
         /// </summary>    
-        Task<List<Training>> GetTrainingsAsync();
+        Task<List<Training>?> GetTrainingsAsync();
     }
 }

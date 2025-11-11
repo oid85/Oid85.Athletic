@@ -1,5 +1,4 @@
-﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
@@ -16,7 +15,13 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
-            var entity = model.Adapt<TrainingEntity>();
+            var entity = new TrainingEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = model.Name,
+                Cycles = model.Cycles
+            };                       
+
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
 
@@ -51,7 +56,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Training> GetTrainingByIdAsync(Guid id)
+        public async Task<Training?> GetTrainingByIdAsync(Guid id)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
@@ -60,7 +65,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (entity is null)
-                return new();
+                return null;
 
             var model = new Training
             {
@@ -94,15 +99,32 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<List<Training>> GetTrainingsAsync()
+        public async Task<List<Training>?> GetTrainingsAsync()
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var entities = context.TrainingEntities.AsQueryable();
 
+            if (entities is null)
+                return null;
+
+            entities = entities.OrderBy(x => x.Name);
+
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
-            return filteredEntities is null ? [] : entities.Select(x => x.Adapt<Training>()).ToList();
+            if (filteredEntities is null)
+                return null;
+
+            var result = entities
+                .Select(x => new Training
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Cycles = x.Cycles
+                })
+                .ToList();
+
+            return result;
         }
     }
 }

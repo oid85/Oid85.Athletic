@@ -1,5 +1,4 @@
-﻿using Mapster;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
@@ -16,7 +15,14 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
-            var entity = model.Adapt<ExerciseTemplateEntity>();
+            var entity = new ExerciseTemplateEntity
+            {
+                Id = Guid.NewGuid(),
+                Name = model.Name,
+                Equipment = model.Equipment,
+                Muscles = model.Muscles
+            };
+
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
 
@@ -52,18 +58,36 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<List<ExerciseTemplate>> GetExerciseTemplatesAsync(string? equipment)
+        public async Task<List<ExerciseTemplate>?> GetExerciseTemplatesAsync(string? equipment)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var entities = context.ExerciseTemplateEntities.AsQueryable();
 
+            if (entities is null)
+                return null;
+
             if (!string.IsNullOrEmpty(equipment))
                 entities = entities.Where(x => x.Equipment == equipment);
 
+            entities = entities.OrderBy(x => x.Name);
+
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
-            return filteredEntities is null ? [] : entities.Select(x => x.Adapt<ExerciseTemplate>()).ToList();
+            if (filteredEntities is null)
+                return null;
+
+            var result = entities
+                .Select(x => new ExerciseTemplate
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Equipment = x.Equipment,
+                    Muscles = x.Muscles,
+                })
+                .ToList();
+
+            return result;
         }
     }
 }

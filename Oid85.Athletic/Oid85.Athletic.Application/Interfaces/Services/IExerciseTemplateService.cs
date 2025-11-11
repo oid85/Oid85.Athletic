@@ -12,21 +12,21 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// <summary>
         /// Создание шаблона упражнения
         /// </summary>
-        Task<CreateExerciseTemplateResponse> CreateExerciseTemplateAsync(CreateExerciseTemplateRequest request);
+        Task<CreateExerciseTemplateResponse?> CreateExerciseTemplateAsync(CreateExerciseTemplateRequest request);
 
         /// <summary>
         /// Удаление шаблона упражнения
         /// </summary>
-        Task<DeleteExerciseTemplateResponse> DeleteExerciseTemplateAsync(DeleteExerciseTemplateRequest request);
+        Task<DeleteExerciseTemplateResponse?> DeleteExerciseTemplateAsync(DeleteExerciseTemplateRequest request);
 
         /// <summary>
         /// Редактирование шаблона упражнения
         /// </summary>
-        Task<EditExerciseTemplateResponse> EditExerciseTemplateAsync(EditExerciseTemplateRequest request);
+        Task<EditExerciseTemplateResponse?> EditExerciseTemplateAsync(EditExerciseTemplateRequest request);
 
         /// <summary>
         /// Получение списка шаблонов упражнений
         /// </summary>
-        Task<GetExerciseTemplateListResponse> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request);
+        Task<GetExerciseTemplateListResponse?> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request);
     }
 }

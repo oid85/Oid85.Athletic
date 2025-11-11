@@ -19,7 +19,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Muscles = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true),
                     Equipment = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
@@ -34,7 +34,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     Cycles = table.Column<int>(type: "integer", nullable: true)
                 },
@@ -48,7 +48,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     CountIterations = table.Column<int>(type: "integer", nullable: true),
                     Minutes = table.Column<int>(type: "integer", nullable: true),
                     Order = table.Column<int>(type: "integer", nullable: true),
@@ -80,7 +80,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 schema: "public",
                 columns: table => new
                 {
-                    id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
                     Date = table.Column<DateOnly>(type: "date", nullable: false),
                     MorningTrainingId = table.Column<Guid>(type: "uuid", nullable: true),
                     DayTrainingId = table.Column<Guid>(type: "uuid", nullable: true)

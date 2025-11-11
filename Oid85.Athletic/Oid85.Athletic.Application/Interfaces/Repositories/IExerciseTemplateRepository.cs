@@ -30,6 +30,6 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         /// Получить шаблоны упражнений по параметрам
         /// </summary>
         /// <param name="equipment">Наименование оборудования</param>        
-        Task<List<ExerciseTemplate>> GetExerciseTemplatesAsync(string? equipment);
+        Task<List<ExerciseTemplate>?> GetExerciseTemplatesAsync(string? equipment);
     }
 }

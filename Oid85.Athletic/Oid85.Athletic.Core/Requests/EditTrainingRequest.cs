@@ -18,6 +18,6 @@
         /// <summary>
         /// Циклы
         /// </summary>
-        public string? Cycles { get; set; }
+        public int? Cycles { get; set; }
     }
 }

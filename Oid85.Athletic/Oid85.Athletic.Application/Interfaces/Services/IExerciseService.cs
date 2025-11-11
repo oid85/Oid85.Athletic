@@ -12,6 +12,6 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// <summary>
         /// Создание упражнения
         /// </summary>
-        Task<CreateExerciseResponse> CreateExerciseAsync(CreateExerciseRequest request);
+        Task<CreateExerciseResponse?> CreateExerciseAsync(CreateExerciseRequest request);
     }
 }
