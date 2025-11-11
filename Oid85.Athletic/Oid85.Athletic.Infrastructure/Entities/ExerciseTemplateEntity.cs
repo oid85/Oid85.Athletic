@@ -13,7 +13,8 @@ namespace Oid85.Athletic.Infrastructure.Entities
         /// Наименование
         /// </summary>
         [MaxLength(500)]
-        public required string Name { get; set; }
+        [Required]
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Задействованные мышцы

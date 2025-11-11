@@ -12,7 +12,7 @@ using Oid85.Athletic.Infrastructure;
 namespace Oid85.Athletic.Infrastructure.Migrations
 {
     [DbContext(typeof(AthleticContext))]
-    [Migration("20251106062408_Init")]
+    [Migration("20251111165350_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -39,6 +39,9 @@ namespace Oid85.Athletic.Infrastructure.Migrations
 
                     b.Property<Guid>("ExerciseTemplateId")
                         .HasColumnType("uuid");
+
+                    b.Property<int?>("Minutes")
+                        .HasColumnType("integer");
 
                     b.Property<int?>("Order")
                         .HasColumnType("integer");
@@ -118,9 +121,8 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<string>("Cycles")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                    b.Property<int?>("Cycles")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()

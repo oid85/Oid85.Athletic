@@ -36,7 +36,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     Name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
-                    Cycles = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: true)
+                    Cycles = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -50,6 +50,7 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
                     CountIterations = table.Column<int>(type: "integer", nullable: true),
+                    Minutes = table.Column<int>(type: "integer", nullable: true),
                     Order = table.Column<int>(type: "integer", nullable: true),
                     Weight = table.Column<double>(type: "numeric(4,1)", nullable: true),
                     ExerciseTemplateId = table.Column<Guid>(type: "uuid", nullable: false),

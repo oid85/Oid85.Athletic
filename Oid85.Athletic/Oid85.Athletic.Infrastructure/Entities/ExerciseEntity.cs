@@ -34,11 +34,13 @@ namespace Oid85.Athletic.Infrastructure.Entities
         /// <summary>
         /// Шаблон упражнения
         /// </summary>
-        public required ExerciseTemplateEntity ExerciseTemplate { get; set; }
+        [Required]
+        public ExerciseTemplateEntity ExerciseTemplate { get; set; } = new();
 
         /// <summary>
         /// Тренировка
         /// </summary>
-        public required TrainingEntity Training { get; set; }
+        [Required]
+        public TrainingEntity Training { get; set; } = new();
     }
 }

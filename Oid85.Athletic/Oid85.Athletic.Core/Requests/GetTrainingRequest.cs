@@ -8,6 +8,6 @@
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public required Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

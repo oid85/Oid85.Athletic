@@ -118,9 +118,8 @@ namespace Oid85.Athletic.Infrastructure.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("gen_random_uuid()");
 
-                    b.Property<string>("Cycles")
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                    b.Property<int?>("Cycles")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()

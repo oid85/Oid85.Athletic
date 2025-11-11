@@ -2,7 +2,7 @@
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
 
-namespace Oid85.Athletic.Infrastructure
+namespace Oid85.Athletic.Infrastructure.Mapping
 {
     public class InfrastructureMapsterConfig
     {

@@ -26,7 +26,7 @@ namespace Oid85.Athletic.Core.Responses
         /// <summary>
         /// Циклы
         /// </summary>
-        public string? Cycles { get; set; }
+        public int? Cycles { get; set; }
 
         /// <summary>
         /// Список упражнений
