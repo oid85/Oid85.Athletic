@@ -30,11 +30,6 @@ namespace Oid85.Athletic.Core.Models
         /// <summary>
         /// Шаблон упражнения
         /// </summary>
-        public required ExerciseTemplate ExerciseTemplate { get; set; }
-
-        /// <summary>
-        /// Тренировка
-        /// </summary>
-        public required Training Training { get; set; }
+        public ExerciseTemplate ExerciseTemplate { get; set; } = new();
     }
 }

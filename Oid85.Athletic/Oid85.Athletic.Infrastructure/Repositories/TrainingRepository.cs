@@ -55,9 +55,42 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
-            var entity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await context.TrainingEntities
+                .Include(x => x.Exercises)!.ThenInclude(x => x.ExerciseTemplate)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            return entity is null ? new() : entity.Adapt<Training>();
+            if (entity is null)
+                return new();
+
+            var model = new Training
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Cycles = entity.Cycles,
+                Exercises = []
+            };
+
+            foreach (var exercise in entity.Exercises!)
+            {
+                model.Exercises.Add(
+                    new Exercise
+                    { 
+                        ExerciseTemplate = new ExerciseTemplate
+                        {
+                            Id = exercise.ExerciseTemplate.Id,
+                            Name = exercise.ExerciseTemplate.Name,
+                            Equipment = exercise.ExerciseTemplate.Equipment,
+                            Muscles = exercise.ExerciseTemplate.Muscles
+                        },
+                        Id = exercise.Id,
+                        CountIterations = exercise.CountIterations,
+                        Minutes = exercise.Minutes,
+                        Order = exercise.Order,
+                        Weight = exercise.Weight
+                    });
+            }
+
+            return model;
         }
 
         /// <inheritdoc/>

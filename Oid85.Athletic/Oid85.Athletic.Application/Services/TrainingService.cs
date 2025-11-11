@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Xml.Linq;
 using Mapster;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Application.Interfaces.Services;
@@ -50,9 +51,29 @@ namespace Oid85.Athletic.Application.Services
         {
             var training = await trainingRepository.GetTrainingByIdAsync(request.Id);
 
-            return training is null
-                ? new()
-                : new() { Training = training.Adapt<GetTrainingItemResponse>() };
+            if (training is null)
+                return new();
+
+            var response = new GetTrainingResponse() 
+            { 
+                Training = new GetTrainingItemResponse
+                {
+                    Name = training.Name,
+                    Cycles = training.Cycles,
+                    Exercises = training.Exercises!
+                        .Select(x => new ExerciseItemResponse
+                        {
+                            Name = x.ExerciseTemplate.Name,
+                            CountIterations = x.CountIterations,
+                            Minutes = x.Minutes,
+                            Order = x.Order,
+                            Weight = x.Weight
+                        })
+                        .ToList()
+                }
+            };
+
+            return response;
         }
 
         /// <inheritdoc/>
