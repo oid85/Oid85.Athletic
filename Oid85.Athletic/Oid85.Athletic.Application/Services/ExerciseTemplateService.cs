@@ -87,6 +87,7 @@ namespace Oid85.Athletic.Application.Services
                 ExerciseTemplates = exerciseTemplates
                     .Select(x => new ExerciseTemplateListItemResponse
                     {
+                        Id = x.Id,
                         Name = x.Name,
                         Equipment = x.Equipment,
                         Muscles = x.Muscles
