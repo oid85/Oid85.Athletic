@@ -15,6 +15,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> CreateExerciseTemplateAsync(ExerciseTemplate model)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             var entity = model.Adapt<ExerciseTemplateEntity>();
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
@@ -26,6 +27,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> DeleteExerciseTemplateAsync(Guid id)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             await context.ExerciseTemplateEntities.Where(x => x.Id == id).ExecuteDeleteAsync();
             await context.SaveChangesAsync();
 
@@ -36,6 +38,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> EditExerciseTemplateAsync(ExerciseTemplate model)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             await context.ExerciseTemplateEntities
                 .Where(x => x.Id == model.Id)
                 .ExecuteUpdateAsync(x => x
@@ -52,6 +55,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<List<ExerciseTemplate>> GetExerciseTemplatesAsync(string? equipment)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             var entities = context.ExerciseTemplateEntities.AsQueryable();
 
             if (!string.IsNullOrEmpty(equipment))
@@ -59,9 +63,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
-            return filteredEntities is null
-                ? []
-                : entities.Select(x => x.Adapt<ExerciseTemplate>()).ToList();
+            return filteredEntities is null ? [] : entities.Select(x => x.Adapt<ExerciseTemplate>()).ToList();
         }
     }
 }

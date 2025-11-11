@@ -52,7 +52,7 @@ namespace Oid85.Athletic.Application.Services
 
             return exerciseTemplates is null 
                 ? new() 
-                : new() { ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItem>()).ToList() };
+                : new() { ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItemResponse>()).ToList() };
         }
     }
 }

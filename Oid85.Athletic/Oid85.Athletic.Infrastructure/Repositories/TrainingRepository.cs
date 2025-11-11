@@ -15,6 +15,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> CreateTrainingAsync(Training model)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             var entity = model.Adapt<TrainingEntity>();
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
@@ -26,6 +27,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> DeleteTrainingAsync(Guid id)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             await context.TrainingEntities.Where(x => x.Id == id).ExecuteDeleteAsync();
             await context.SaveChangesAsync();
 
@@ -36,6 +38,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         public async Task<Guid?> EditTrainingAsync(Training model)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             await context.TrainingEntities
                 .Where(x => x.Id == model.Id)
                 .ExecuteUpdateAsync(x => x
@@ -48,16 +51,25 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<Training> GetTrainingByIdAsync(Guid id)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == id);
+
+            return entity is null ? new() : entity.Adapt<Training>();
+        }
+
+        /// <inheritdoc/>
         public async Task<List<Training>> GetTrainingsAsync()
         {
             await using var context = await contextFactory.CreateDbContextAsync();
+
             var entities = context.TrainingEntities.AsQueryable();
 
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
-            return filteredEntities is null 
-                ? [] 
-                : entities.Select(x => x.Adapt<Training>()).ToList();
+            return filteredEntities is null ? [] : entities.Select(x => x.Adapt<Training>()).ToList();
         }
     }
 }

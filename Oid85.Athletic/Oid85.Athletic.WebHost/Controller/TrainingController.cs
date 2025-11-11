@@ -67,4 +67,17 @@ public class TrainingController(
         GetResponseAsync(
             () => trainingService.DeleteTrainingAsync(request),
             result => new BaseResponse<DeleteTrainingResponse> { Result = result });
+
+    /// <summary>
+    /// Получить тренировку по идентификатору
+    /// </summary>
+    [HttpPost("get")]
+    [ProducesResponseType(typeof(BaseResponse<GetTrainingResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<GetTrainingResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<GetTrainingResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> GetTrainingAsync(
+        [FromBody] GetTrainingRequest request) =>
+        GetResponseAsync(
+            () => trainingService.GetTrainingAsync(request),
+            result => new BaseResponse<GetTrainingResponse> { Result = result });
 }

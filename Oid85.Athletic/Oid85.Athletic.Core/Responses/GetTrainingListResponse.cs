@@ -8,14 +8,19 @@
         /// <summary>
         /// Список шаблонов упражнений
         /// </summary>
-        public List<TrainingListItem> Trainings { get; set; } = [];
+        public List<TrainingListItemResponse> Trainings { get; set; } = [];
     }
 
     /// <summary>
     /// Тренировка
     /// </summary>
-    public class TrainingListItem
+    public class TrainingListItemResponse
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+
         /// <summary>
         /// Наименование
         /// </summary>

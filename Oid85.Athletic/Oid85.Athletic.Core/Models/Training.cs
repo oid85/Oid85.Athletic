@@ -10,7 +10,7 @@ namespace Oid85.Athletic.Core.Models
         /// <summary>
         /// Наименование
         /// </summary>
-        public required string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Циклы

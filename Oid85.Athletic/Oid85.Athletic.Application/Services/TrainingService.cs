@@ -46,13 +46,23 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
+        public async Task<GetTrainingResponse> GetTrainingAsync(GetTrainingRequest request)
+        {
+            var training = await trainingRepository.GetTrainingByIdAsync(request.Id);
+
+            return training is null
+                ? new()
+                : new() { Training = training.Adapt<GetTrainingResponse>() };
+        }
+
+        /// <inheritdoc/>
         public async Task<GetTrainingListResponse> GetTrainingListAsync(GetTrainingListRequest request)
         {
-            var trainings = (await trainingRepository.GetTrainingsAsync()).OrderBy(x => x.Name).ToList(); ;
+            var trainings = (await trainingRepository.GetTrainingsAsync()).OrderBy(x => x.Name).ToList();
 
             return trainings is null 
                 ? new() 
-                : new() { Trainings = trainings.Select(x => x.Adapt<TrainingListItem>()).ToList() };
+                : new() { Trainings = trainings.Select(x => x.Adapt<TrainingListItemResponse>()).ToList() };
         }
     }
 }

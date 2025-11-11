@@ -26,6 +26,12 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> EditTrainingAsync(Training model);
 
         /// <summary>
+        /// Получить тренировку
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        Task<Training> GetTrainingByIdAsync(Guid id);
+
+        /// <summary>
         /// Получить список тренировок
         /// </summary>    
         Task<List<Training>> GetTrainingsAsync();

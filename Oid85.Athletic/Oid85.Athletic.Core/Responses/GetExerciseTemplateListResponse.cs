@@ -8,13 +8,13 @@
         /// <summary>
         /// Список шаблонов упражнений
         /// </summary>
-        public List<ExerciseTemplateListItem> ExerciseTemplates { get; set; } = [];
+        public List<ExerciseTemplateListItemResponse> ExerciseTemplates { get; set; } = [];
     }
 
     /// <summary>
     /// Шаблон упражнения
     /// </summary>
-    public class ExerciseTemplateListItem
+    public class ExerciseTemplateListItemResponse
     {
         /// <summary>
         /// Идентификатор

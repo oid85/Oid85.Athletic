@@ -28,5 +28,10 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// Получение списка тренировок
         /// </summary>
         Task<GetTrainingListResponse> GetTrainingListAsync(GetTrainingListRequest request);
+
+        /// <summary>
+        /// Получение тренировки по идентификатору
+        /// </summary>
+        Task<GetTrainingResponse> GetTrainingAsync(GetTrainingRequest request);
     }
 }
