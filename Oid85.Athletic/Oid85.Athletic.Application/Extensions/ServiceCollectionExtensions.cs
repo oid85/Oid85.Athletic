@@ -10,6 +10,7 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services)
     {
         services.AddTransient<IExerciseTemplateService, ExerciseTemplateService>();
+        services.AddTransient<IExerciseService, ExerciseService>();
         services.AddTransient<ITrainingService, TrainingService>();
     }
 }

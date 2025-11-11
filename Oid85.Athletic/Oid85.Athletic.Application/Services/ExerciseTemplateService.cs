@@ -19,9 +19,7 @@ namespace Oid85.Athletic.Application.Services
             var model = request.Adapt<ExerciseTemplate>();
             var id = await exerciseTemplateRepository.CreateExerciseTemplateAsync(model);
 
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+            return id is null ? new() : new() { Id = id };
         }
 
         /// <inheritdoc/>
@@ -29,9 +27,7 @@ namespace Oid85.Athletic.Application.Services
         {
             var id = await exerciseTemplateRepository.DeleteExerciseTemplateAsync(request.Id);
 
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+            return id is null ? new() : new() { Id = id };
         }
 
         /// <inheritdoc/>
@@ -40,9 +36,7 @@ namespace Oid85.Athletic.Application.Services
             var model = request.Adapt<ExerciseTemplate>();
             var id = await exerciseTemplateRepository.EditExerciseTemplateAsync(model);
 
-            return id is null 
-                ? new() 
-                : new() { Id = id };
+            return id is null ? new() : new() { Id = id };
         }
 
         /// <inheritdoc/>
@@ -51,8 +45,7 @@ namespace Oid85.Athletic.Application.Services
             var exerciseTemplates = (await exerciseTemplateRepository.GetExerciseTemplatesAsync(request.Equipment)).OrderBy(x => x.Name).ToList();
 
             return exerciseTemplates is null 
-                ? new() 
-                : new() { ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItemResponse>()).ToList() };
+                ? new() : new() { ExerciseTemplates = exerciseTemplates.Select(x => x.Adapt<ExerciseTemplateListItemResponse>()).ToList() };
         }
     }
 }
