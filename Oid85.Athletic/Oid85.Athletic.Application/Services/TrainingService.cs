@@ -16,7 +16,8 @@ namespace Oid85.Athletic.Application.Services
         {
             var model = new Training
             {
-                Name = request.Name
+                Name = request.Name,
+                Cycles = 1
             };
 
             var id = await trainingRepository.CreateTrainingAsync(model);
@@ -46,18 +47,11 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task<EditTrainingResponse?> EditTrainingAsync(EditTrainingRequest request)
+        public async Task<EditTrainingNameResponse?> EditTrainingNameAsync(EditTrainingNameRequest request)
         {
-            var model = new Training
-            {
-                Id = request.Id,
-                Name = request.Name,
-                Cycles = request.Cycles
-            };
+            var id = await trainingRepository.EditTrainingNameAsync(request.Id, request.Name);
 
-            var id = await trainingRepository.EditTrainingAsync(model);
-
-            var response = new EditTrainingResponse
+            var response = new EditTrainingNameResponse
             {
                 Id = id.Value
             };

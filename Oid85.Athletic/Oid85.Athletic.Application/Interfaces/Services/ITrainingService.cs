@@ -20,9 +20,9 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         Task<DeleteTrainingResponse?> DeleteTrainingAsync(DeleteTrainingRequest request);
 
         /// <summary>
-        /// Редактирование тренировку
+        /// Редактирование наименования тренировки
         /// </summary>
-        Task<EditTrainingResponse?> EditTrainingAsync(EditTrainingRequest request);
+        Task<EditTrainingNameResponse?> EditTrainingNameAsync(EditTrainingNameRequest request);
 
         /// <summary>
         /// Получение списка тренировок

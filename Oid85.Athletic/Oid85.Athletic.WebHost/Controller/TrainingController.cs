@@ -43,17 +43,17 @@ public class TrainingController(
             result => new BaseResponse<CreateTrainingResponse> { Result = result });
 
     /// <summary>
-    /// Редактировать тренировку
+    /// Редактировать наименование тренировки
     /// </summary>
-    [HttpPost("edit")]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status500InternalServerError)]
-    public Task<IActionResult> EditTrainingAsync(
-        [FromBody] EditTrainingRequest request) =>
+    [HttpPost("edit-name")]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditNameTrainingAsync(
+        [FromBody] EditTrainingNameRequest request) =>
         GetResponseAsync(
-            () => trainingService.EditTrainingAsync(request),
-            result => new BaseResponse<EditTrainingResponse> { Result = result });
+            () => trainingService.EditTrainingNameAsync(request),
+            result => new BaseResponse<EditTrainingNameResponse> { Result = result });
 
     /// <summary>
     /// Удалить тренировку

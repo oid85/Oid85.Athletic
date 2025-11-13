@@ -3,7 +3,7 @@
     /// <summary>
     /// Ответ на запрос редактирования тренировки
     /// </summary>
-    public class EditTrainingResponse
+    public class EditTrainingNameResponse
     {
         /// <summary>
         /// Идентификатор

@@ -40,19 +40,18 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Guid?> EditTrainingAsync(Training model)
+        public async Task<Guid?> EditTrainingNameAsync(Guid id, string name)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
             await context.TrainingEntities
-                .Where(x => x.Id == model.Id)
+                .Where(x => x.Id == id)
                 .ExecuteUpdateAsync(x => x
-                        .SetProperty(entity => entity.Name, model.Name)
-                        .SetProperty(entity => entity.Cycles, model.Cycles));
+                        .SetProperty(entity => entity.Name, name));
 
             await context.SaveChangesAsync();
 
-            return model.Id;
+            return id;
         }
 
         /// <inheritdoc/>

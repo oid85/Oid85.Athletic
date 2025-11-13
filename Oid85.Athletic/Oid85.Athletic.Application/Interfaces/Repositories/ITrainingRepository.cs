@@ -20,10 +20,11 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> DeleteTrainingAsync(Guid id);
 
         /// <summary>
-        /// Редактировать тренировку
+        /// Редактировать наименование тренировки
         /// </summary>
-        /// <param name="model">Модель тренировки</param>
-        Task<Guid?> EditTrainingAsync(Training model);
+        /// <param name="id">Идентификатор</param>
+        /// <param name="name">Наименование</param>
+        Task<Guid?> EditTrainingNameAsync(Guid id, string name);
 
         /// <summary>
         /// Получить тренировку
