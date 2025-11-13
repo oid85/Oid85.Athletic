@@ -16,6 +16,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             var exerciseTemplateEntity = await context.ExerciseTemplateEntities.FirstOrDefaultAsync(x => x.Id == exerciseTemplateId);
             var trainingEntity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == trainingId);
+            var exerciseCount = await context.ExerciseEntities.Include(x => x.Training).CountAsync(x => x.Training.Id == trainingId);
 
             if (exerciseTemplateEntity is null) return null;
             if (trainingEntity is null) return null;
@@ -24,7 +25,8 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             { 
                 Id = Guid.NewGuid(),
                 ExerciseTemplate = exerciseTemplateEntity, 
-                Training = trainingEntity 
+                Training = trainingEntity,
+                Order = exerciseCount + 1
             };
 
             await context.AddAsync(entity);
