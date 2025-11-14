@@ -119,25 +119,25 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 Exercises = []
             };
 
-            foreach (var exercise in entity.Exercises!)
-            {
-                model.Exercises.Add(
-                    new Exercise
-                    { 
+            if (entity.Exercises is not null)
+                model.Exercises = entity.Exercises
+                    .Select(x => new Exercise
+                    {
                         ExerciseTemplate = new ExerciseTemplate
                         {
-                            Id = exercise.ExerciseTemplate.Id,
-                            Name = exercise.ExerciseTemplate.Name,
-                            Equipment = exercise.ExerciseTemplate.Equipment,
-                            Muscles = exercise.ExerciseTemplate.Muscles
+                            Id = x.ExerciseTemplate.Id,
+                            Name = x.ExerciseTemplate.Name,
+                            Equipment = x.ExerciseTemplate.Equipment,
+                            Muscles = x.ExerciseTemplate.Muscles
                         },
-                        Id = exercise.Id,
-                        CountIterations = exercise.CountIterations,
-                        Minutes = exercise.Minutes,
-                        Order = exercise.Order,
-                        Weight = exercise.Weight
-                    });
-            }
+                        Id = x.Id,
+                        CountIterations = x.CountIterations,
+                        Minutes = x.Minutes,
+                        Order = x.Order,
+                        Weight = x.Weight
+                    })
+                    .OrderBy(x => x.Order)
+                    .ToList();
 
             return model;
         }

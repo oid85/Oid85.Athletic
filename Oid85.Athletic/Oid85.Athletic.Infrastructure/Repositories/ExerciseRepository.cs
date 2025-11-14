@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oid85.Athletic.Application.Interfaces.Repositories;
+using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
 
 namespace Oid85.Athletic.Infrastructure.Repositories
@@ -33,6 +34,34 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await context.SaveChangesAsync();
 
             return entity.Id;
+        }
+
+        public async Task<Guid?> DeleteExerciseAsync(Guid id)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            await context.ExerciseEntities.Where(x => x.Id == id).ExecuteDeleteAsync();
+            await context.SaveChangesAsync();
+
+            return id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> EditExerciseAsync(Exercise model)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            await context.ExerciseEntities
+                .Where(x => x.Id == model.Id)
+                .ExecuteUpdateAsync(x => x
+                        .SetProperty(entity => entity.Order, model.Order == 0 ? 1 : model.CountIterations)
+                        .SetProperty(entity => entity.CountIterations, model.CountIterations == 0 ? null : model.CountIterations)
+                        .SetProperty(entity => entity.Minutes, model.Minutes == 0 ? null : model.Minutes)                        
+                        .SetProperty(entity => entity.Weight, model.Weight == 0 ? null : model.Weight));
+
+            await context.SaveChangesAsync();
+
+            return model.Id;
         }
     }
 }

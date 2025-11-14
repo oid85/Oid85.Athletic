@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Oid85.Athletic.Application.Interfaces.Services;
+using Oid85.Athletic.Application.Services;
 using Oid85.Athletic.Core;
 using Oid85.Athletic.Core.Requests;
 using Oid85.Athletic.Core.Responses;
@@ -28,4 +29,30 @@ public class ExerciseController(
         GetResponseAsync(
             () => exerciseService.CreateExerciseAsync(request),
             result => new BaseResponse<CreateExerciseResponse> { Result = result });
+
+    /// <summary>
+    /// Редактировать упражнение в тренировке
+    /// </summary>
+    [HttpPost("edit")]
+    [ProducesResponseType(typeof(BaseResponse<EditExerciseResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditExerciseResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditExerciseResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditExerciseAsync(
+        [FromBody] EditExerciseRequest request) =>
+        GetResponseAsync(
+            () => exerciseService.EditExerciseAsync(request),
+            result => new BaseResponse<EditExerciseResponse> { Result = result });
+
+    /// <summary>
+    /// Удалить упражнение из тренировки
+    /// </summary>
+    [HttpPost("delete")]
+    [ProducesResponseType(typeof(BaseResponse<DeleteExerciseResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<DeleteExerciseResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<DeleteExerciseResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> DeleteExerciseAsync(
+        [FromBody] DeleteExerciseRequest request) =>
+        GetResponseAsync(
+            () => exerciseService.DeleteExerciseAsync(request),
+            result => new BaseResponse<DeleteExerciseResponse> { Result = result });
 }
