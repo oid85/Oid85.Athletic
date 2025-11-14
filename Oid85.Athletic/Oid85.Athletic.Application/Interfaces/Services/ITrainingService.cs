@@ -25,6 +25,11 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         Task<EditTrainingNameResponse?> EditTrainingNameAsync(EditTrainingNameRequest request);
 
         /// <summary>
+        /// Редактировать количество циклов в тренировке
+        /// </summary>
+        Task<EditTrainingCyclesResponse?> EditTrainingCyclesAsync(EditTrainingCyclesRequest request);
+
+        /// <summary>
         /// Получение списка тренировок
         /// </summary>
         Task<GetTrainingListResponse?> GetTrainingListAsync(GetTrainingListRequest request);

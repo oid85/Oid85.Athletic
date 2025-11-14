@@ -60,6 +60,19 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
+        public async Task<EditTrainingCyclesResponse?> EditTrainingCyclesAsync(EditTrainingCyclesRequest request)
+        {
+            var id = await trainingRepository.EditTrainingCyclesAsync(request.Id, request.Cycles);
+
+            var response = new EditTrainingCyclesResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
         public async Task<GetTrainingResponse?> GetTrainingAsync(GetTrainingRequest request)
         {
             var training = await trainingRepository.GetTrainingByIdAsync(request.Id);

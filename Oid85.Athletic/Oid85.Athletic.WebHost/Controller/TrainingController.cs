@@ -56,6 +56,19 @@ public class TrainingController(
             result => new BaseResponse<EditTrainingNameResponse> { Result = result });
 
     /// <summary>
+    /// Редактировать количество циклов в тренировке
+    /// </summary>
+    [HttpPost("edit-cycles")]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingCyclesResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingCyclesResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingCyclesResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditCyclesTrainingAsync(
+        [FromBody] EditTrainingCyclesRequest request) =>
+        GetResponseAsync(
+            () => trainingService.EditTrainingCyclesAsync(request),
+            result => new BaseResponse<EditTrainingCyclesResponse> { Result = result });
+
+    /// <summary>
     /// Удалить тренировку
     /// </summary>
     [HttpPost("delete")]
