@@ -22,6 +22,16 @@ namespace Oid85.Athletic.Infrastructure.Entities
         public int? Cycles { get; set; }
 
         /// <summary>
+        /// Длительность разминочного кардио
+        /// </summary>
+        public int? StartCardioMinutes { get; set; }
+
+        /// <summary>
+        /// Длительность заминочного кардио
+        /// </summary>
+        public int? FinishCardioMinutes { get; set; }
+
+        /// <summary>
         /// Список упражнений
         /// </summary>
         public ICollection<ExerciseEntity>? Exercises { get; set; }

@@ -17,7 +17,9 @@ namespace Oid85.Athletic.Application.Services
             var model = new Training
             {
                 Name = request.Name,
-                Cycles = 1
+                Cycles = 1,
+                StartCardioMinutes = 5,
+                FinishCardioMinutes = 5
             };
 
             var id = await trainingRepository.CreateTrainingAsync(model);
