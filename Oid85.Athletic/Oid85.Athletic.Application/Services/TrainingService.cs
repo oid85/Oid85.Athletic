@@ -115,6 +115,8 @@ namespace Oid85.Athletic.Application.Services
                     Id = training.Id,
                     Name = training.Name,
                     Cycles = training.Cycles,
+                    StartCardioMinutes = training.StartCardioMinutes,
+                    FinishCardioMinutes = training.FinishCardioMinutes,
                     Exercises = training.Exercises!
                         .Select(x => new ExerciseItemResponse
                         {

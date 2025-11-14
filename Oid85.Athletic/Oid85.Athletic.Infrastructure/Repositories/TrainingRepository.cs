@@ -116,6 +116,8 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 Id = entity.Id,
                 Name = entity.Name,
                 Cycles = entity.Cycles,
+                StartCardioMinutes = entity.StartCardioMinutes,
+                FinishCardioMinutes = entity.FinishCardioMinutes,
                 Exercises = []
             };
 
