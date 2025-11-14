@@ -69,6 +69,32 @@ public class TrainingController(
             result => new BaseResponse<EditTrainingCyclesResponse> { Result = result });
 
     /// <summary>
+    /// Редактировать длительность разминки
+    /// </summary>
+    [HttpPost("edit-start-cardio-minutes")]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingStartCardioMinutesResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingStartCardioMinutesResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingStartCardioMinutesResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditStartCardioMinutesTrainingAsync(
+        [FromBody] EditTrainingStartCardioMinutesRequest request) =>
+        GetResponseAsync(
+            () => trainingService.EditTrainingStartCardioMinutesAsync(request),
+            result => new BaseResponse<EditTrainingStartCardioMinutesResponse> { Result = result });
+
+    /// <summary>
+    /// Редактировать длительность заминки
+    /// </summary>
+    [HttpPost("edit-finish-cardio-minutes")]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingFinishCardioMinutesResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingFinishCardioMinutesResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingFinishCardioMinutesResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditFinishCardioMinutesTrainingAsync(
+        [FromBody] EditTrainingFinishCardioMinutesRequest request) =>
+        GetResponseAsync(
+            () => trainingService.EditTrainingFinishCardioMinutesAsync(request),
+            result => new BaseResponse<EditTrainingFinishCardioMinutesResponse> { Result = result });
+
+    /// <summary>
     /// Удалить тренировку
     /// </summary>
     [HttpPost("delete")]

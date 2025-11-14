@@ -30,6 +30,16 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         Task<EditTrainingCyclesResponse?> EditTrainingCyclesAsync(EditTrainingCyclesRequest request);
 
         /// <summary>
+        /// Редактировать длительность разминочного кардио
+        /// </summary>
+        Task<EditTrainingStartCardioMinutesResponse?> EditTrainingStartCardioMinutesAsync(EditTrainingStartCardioMinutesRequest request);
+
+        /// <summary>
+        /// Редактировать длительность заминочного кардио
+        /// </summary>
+        Task<EditTrainingFinishCardioMinutesResponse?> EditTrainingFinishCardioMinutesAsync(EditTrainingFinishCardioMinutesRequest request);
+
+        /// <summary>
         /// Получение списка тренировок
         /// </summary>
         Task<GetTrainingListResponse?> GetTrainingListAsync(GetTrainingListRequest request);

@@ -34,6 +34,20 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> EditTrainingCyclesAsync(Guid id, int cycles);
 
         /// <summary>
+        /// Редактировать длительность разминочного кардио
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="startCardioMinutes">Длительность разминочного кардио</param>
+        Task<Guid?> EditTrainingStartCardioMinutesAsync(Guid id, int startCardioMinutes);
+
+        /// <summary>
+        /// Редактировать длительность заминочного кардио
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="finishCardioMinutes">Длительность заминочного кардио</param>
+        Task<Guid?> EditTrainingFinishCardioMinutesAsync(Guid id, int finishCardioMinutes);
+
+        /// <summary>
         /// Получить тренировку
         /// </summary>
         /// <param name="id">Идентификатор</param>

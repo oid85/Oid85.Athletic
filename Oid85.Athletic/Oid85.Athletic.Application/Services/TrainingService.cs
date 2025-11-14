@@ -75,6 +75,32 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
+        public async Task<EditTrainingStartCardioMinutesResponse?> EditTrainingStartCardioMinutesAsync(EditTrainingStartCardioMinutesRequest request)
+        {
+            var id = await trainingRepository.EditTrainingStartCardioMinutesAsync(request.Id, request.StartCardioMinutes);
+
+            var response = new EditTrainingStartCardioMinutesResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
+        public async Task<EditTrainingFinishCardioMinutesResponse?> EditTrainingFinishCardioMinutesAsync(EditTrainingFinishCardioMinutesRequest request)
+        {
+            var id = await trainingRepository.EditTrainingFinishCardioMinutesAsync(request.Id, request.FinishCardioMinutes);
+
+            var response = new EditTrainingFinishCardioMinutesResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
         public async Task<GetTrainingResponse?> GetTrainingAsync(GetTrainingRequest request)
         {
             var training = await trainingRepository.GetTrainingByIdAsync(request.Id);
