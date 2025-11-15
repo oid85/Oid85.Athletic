@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Oid85.Athletic.Infrastructure;
@@ -11,9 +12,11 @@ using Oid85.Athletic.Infrastructure;
 namespace Oid85.Athletic.Infrastructure.Migrations
 {
     [DbContext(typeof(AthleticContext))]
-    partial class AthleticContextModelSnapshot : ModelSnapshot
+    [Migration("20251115162435_AddColumnsToTrainingTable")]
+    partial class AddColumnsToTrainingTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

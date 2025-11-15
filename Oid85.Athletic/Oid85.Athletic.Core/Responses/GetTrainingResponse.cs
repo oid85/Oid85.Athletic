@@ -1,6 +1,4 @@
-﻿using Oid85.Athletic.Core.Models;
-
-namespace Oid85.Athletic.Core.Responses
+﻿namespace Oid85.Athletic.Core.Responses
 {
     /// <summary>
     /// Ответ на запрос получения тренировки по идентификатору
@@ -42,6 +40,16 @@ namespace Oid85.Athletic.Core.Responses
         /// Длительность заминочного кардио
         /// </summary>
         public int? FinishCardioMinutes { get; set; }
+
+        /// <summary>
+        /// Общее количество повторений
+        /// </summary>
+        public int? TotalCountIterations { get; set; }
+
+        /// <summary>
+        /// Общий вес
+        /// </summary>
+        public double? TotalWeight { get; set; }
 
         /// <summary>
         /// Список упражнений

@@ -32,6 +32,17 @@ namespace Oid85.Athletic.Infrastructure.Entities
         public int? FinishCardioMinutes { get; set; }
 
         /// <summary>
+        /// Общее количество повторений
+        /// </summary>
+        public int? TotalCountIterations { get; set; }
+
+        /// <summary>
+        /// Общий вес
+        /// </summary>
+        [Column(TypeName = "decimal(6,1)")]
+        public double? TotalWeight { get; set; }
+
+        /// <summary>
         /// Список упражнений
         /// </summary>
         public ICollection<ExerciseEntity>? Exercises { get; set; }

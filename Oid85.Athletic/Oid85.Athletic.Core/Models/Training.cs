@@ -28,6 +28,16 @@ namespace Oid85.Athletic.Core.Models
         public int? FinishCardioMinutes { get; set; }
 
         /// <summary>
+        /// Общее количество повторений
+        /// </summary>
+        public int? TotalCountIterations { get; set; }
+
+        /// <summary>
+        /// Общий вес
+        /// </summary>
+        public double? TotalWeight { get; set; }
+
+        /// <summary>
         /// Список упражнений
         /// </summary>
         public List<Exercise>? Exercises { get; set; }

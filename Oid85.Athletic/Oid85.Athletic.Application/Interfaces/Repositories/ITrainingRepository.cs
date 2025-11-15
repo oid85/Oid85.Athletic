@@ -48,6 +48,20 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> EditTrainingFinishCardioMinutesAsync(Guid id, int finishCardioMinutes);
 
         /// <summary>
+        /// Редактировать общее кол-во повторений
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="totalCountIterations">Общее кол-во повторений</param>
+        Task<Guid?> EditTrainingTotalCountIterationsAsync(Guid id, int totalCountIterations);
+
+        /// <summary>
+        /// Редактировать общий вес
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <param name="totalWeight">Общий вес</param>
+        Task<Guid?> EditTrainingTotalWeightAsync(Guid id, double totalWeight);
+
+        /// <summary>
         /// Получить тренировку
         /// </summary>
         /// <param name="id">Идентификатор</param>

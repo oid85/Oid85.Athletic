@@ -100,6 +100,36 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<Guid?> EditTrainingTotalCountIterationsAsync(Guid id, int totalCountIterations)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            await context.TrainingEntities
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(x => x
+                        .SetProperty(entity => entity.TotalCountIterations, totalCountIterations));
+
+            await context.SaveChangesAsync();
+
+            return id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> EditTrainingTotalWeightAsync(Guid id, double totalWeight)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            await context.TrainingEntities
+                .Where(x => x.Id == id)
+                .ExecuteUpdateAsync(x => x
+                        .SetProperty(entity => entity.TotalWeight, totalWeight));
+
+            await context.SaveChangesAsync();
+
+            return id;
+        }
+
+        /// <inheritdoc/>
         public async Task<Training?> GetTrainingByIdAsync(Guid id)
         {
             await using var context = await contextFactory.CreateDbContextAsync();

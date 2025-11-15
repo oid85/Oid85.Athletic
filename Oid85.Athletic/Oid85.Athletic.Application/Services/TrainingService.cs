@@ -117,6 +117,8 @@ namespace Oid85.Athletic.Application.Services
                     Cycles = training.Cycles,
                     StartCardioMinutes = training.StartCardioMinutes,
                     FinishCardioMinutes = training.FinishCardioMinutes,
+                    TotalCountIterations = training.Exercises!.Sum(x => x.CountIterations) * training.Cycles,
+                    TotalWeight = training.Exercises!.Sum(x => x.Weight) * training.Cycles,
                     Exercises = training.Exercises!
                         .Select(x => new ExerciseItemResponse
                         {
@@ -141,16 +143,26 @@ namespace Oid85.Athletic.Application.Services
 
             if (trainings is null)
                 return null;
+            
+            var trainingListItems = new List<TrainingListItemResponse>();
 
-            var response = new GetTrainingListResponse()
+            foreach (var item in trainings)
             {
-                Trainings = trainings
-                    .Select(x => new TrainingListItemResponse
+                var training = await trainingRepository.GetTrainingByIdAsync(item.Id);
+
+                trainingListItems.Add(
+                    new TrainingListItemResponse
                     {
-                        Id = x.Id,
-                        Name = x.Name
-                    })
-                    .ToList()
+                        Id = training!.Id,
+                        Name = training.Name,
+                        TotalCountIterations = training.Exercises!.Sum(x => x.CountIterations) * training.Cycles,
+                        TotalWeight = training.Exercises!.Sum(x => x.Weight) * training.Cycles
+                    });
+            }
+
+            var response = new GetTrainingListResponse
+            {
+                Trainings = trainingListItems.OrderBy(x => x.TotalCountIterations).ToList(),
             };
 
             return response;

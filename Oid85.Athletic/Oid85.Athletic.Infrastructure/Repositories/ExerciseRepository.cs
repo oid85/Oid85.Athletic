@@ -16,7 +16,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var exerciseTemplateEntity = await context.ExerciseTemplateEntities.FirstOrDefaultAsync(x => x.Id == exerciseTemplateId);
-            var trainingEntity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == trainingId);
+            var trainingEntity = await context.TrainingEntities.Include(x => x.Exercises).FirstOrDefaultAsync(x => x.Id == trainingId);
             var exerciseCount = await context.ExerciseEntities.Include(x => x.Training).CountAsync(x => x.Training.Id == trainingId);
 
             if (exerciseTemplateEntity is null) return null;
@@ -28,7 +28,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 ExerciseTemplate = exerciseTemplateEntity, 
                 Training = trainingEntity,
                 Order = exerciseCount + 1
-            };
+            };            
 
             await context.AddAsync(entity);
             await context.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await context.ExerciseEntities
                 .Where(x => x.Id == model.Id)
                 .ExecuteUpdateAsync(x => x
-                        .SetProperty(entity => entity.Order, model.Order == 0 ? 1 : model.CountIterations)
+                        .SetProperty(entity => entity.Order, model.Order == 0 ? 1 : model.Order)
                         .SetProperty(entity => entity.CountIterations, model.CountIterations == 0 ? null : model.CountIterations)
                         .SetProperty(entity => entity.Minutes, model.Minutes == 0 ? null : model.Minutes)                        
                         .SetProperty(entity => entity.Weight, model.Weight == 0 ? null : model.Weight));
