@@ -62,10 +62,16 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> EditTrainingTotalWeightAsync(Guid id, double totalWeight);
 
         /// <summary>
-        /// Получить тренировку
+        /// Получить тренировку по Id
         /// </summary>
         /// <param name="id">Идентификатор</param>
         Task<Training?> GetTrainingByIdAsync(Guid id);
+
+        /// <summary>
+        /// Получить тренировку по Id упражнения
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        Task<Training?> GetTrainingByExerciseIdAsync(Guid exerciseId);
 
         /// <summary>
         /// Получить список тренировок

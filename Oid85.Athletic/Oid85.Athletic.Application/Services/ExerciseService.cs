@@ -8,13 +8,19 @@ namespace Oid85.Athletic.Application.Services
 {
     /// <inheritdoc/>
     public class ExerciseService(
-        IExerciseRepository exerciseRepository) 
+        IExerciseRepository exerciseRepository,
+        ITrainingRepository trainingRepository,
+        ITrainingService trainingService) 
         : IExerciseService
     {
         /// <inheritdoc/>
         public async Task<CreateExerciseResponse?> CreateExerciseAsync(CreateExerciseRequest request)
         {
-            var id = await exerciseRepository.CreateExerciseAsync(request.ExerciseTemplateId, request.TrainingId);
+            var id = await exerciseRepository.CreateExerciseAsync(request.ExerciseTemplateId, request.TrainingId);            
+            
+            var intensity = await trainingService.GetTrainingIntensityAsync(request.TrainingId);
+            if (intensity.TotalCountIterations.HasValue) await trainingRepository.EditTrainingTotalCountIterationsAsync(request.TrainingId, intensity.TotalCountIterations.Value);
+            if (intensity.TotalWeight.HasValue) await trainingRepository.EditTrainingTotalWeightAsync(request.TrainingId, intensity.TotalWeight.Value);
 
             if (id is null) 
                 return null;
@@ -31,6 +37,11 @@ namespace Oid85.Athletic.Application.Services
         public async Task<DeleteExerciseResponse?> DeleteExerciseAsync(DeleteExerciseRequest request)
         {
             var id = await exerciseRepository.DeleteExerciseAsync(request.Id);
+
+            var training = await trainingRepository.GetTrainingByExerciseIdAsync(request.Id);
+            var intensity = await trainingService.GetTrainingIntensityAsync(training!.Id);
+            if (intensity.TotalCountIterations.HasValue) await trainingRepository.EditTrainingTotalCountIterationsAsync(training.Id, intensity.TotalCountIterations.Value);
+            if (intensity.TotalWeight.HasValue) await trainingRepository.EditTrainingTotalWeightAsync(training.Id, intensity.TotalWeight.Value);
 
             if (id is null)
                 return null;
@@ -56,6 +67,11 @@ namespace Oid85.Athletic.Application.Services
             };
 
             var id = await exerciseRepository.EditExerciseAsync(model);
+
+            var training = await trainingRepository.GetTrainingByExerciseIdAsync(request.Id);
+            var intensity = await trainingService.GetTrainingIntensityAsync(training!.Id);
+            if (intensity.TotalCountIterations.HasValue) await trainingRepository.EditTrainingTotalCountIterationsAsync(training.Id, intensity.TotalCountIterations.Value);
+            if (intensity.TotalWeight.HasValue) await trainingRepository.EditTrainingTotalWeightAsync(training.Id, intensity.TotalWeight.Value);
 
             if (id is null)
                 return null;

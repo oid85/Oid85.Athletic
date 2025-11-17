@@ -148,6 +148,57 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 Cycles = entity.Cycles,
                 StartCardioMinutes = entity.StartCardioMinutes,
                 FinishCardioMinutes = entity.FinishCardioMinutes,
+                TotalCountIterations = entity.TotalCountIterations,
+                TotalWeight = entity.TotalWeight,
+                Exercises = []
+            };
+
+            if (entity.Exercises is not null)
+                model.Exercises = entity.Exercises
+                    .Select(x => new Exercise
+                    {
+                        ExerciseTemplate = new ExerciseTemplate
+                        {
+                            Id = x.ExerciseTemplate.Id,
+                            Name = x.ExerciseTemplate.Name,
+                            Equipment = x.ExerciseTemplate.Equipment,
+                            Muscles = x.ExerciseTemplate.Muscles
+                        },
+                        Id = x.Id,
+                        CountIterations = x.CountIterations,
+                        Minutes = x.Minutes,
+                        Order = x.Order,
+                        Weight = x.Weight
+                    })
+                    .OrderBy(x => x.Order)
+                    .ToList();
+
+            return model;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Training?> GetTrainingByExerciseIdAsync(Guid exerciseId)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var exerciseEntity = await context.ExerciseEntities
+                .Include(x => x.Training)
+                .FirstOrDefaultAsync(x => x.Id == exerciseId);
+
+            var entity = await context.TrainingEntities
+                .Include(x => x.Exercises)!.ThenInclude(x => x.ExerciseTemplate)
+                .FirstOrDefaultAsync(x => x.Id == exerciseEntity!.Training.Id);
+
+            if (entity is null)
+                return null;
+
+            var model = new Training
+            {
+                Id = entity.Id,
+                Name = entity.Name,
+                Cycles = entity.Cycles,
+                StartCardioMinutes = entity.StartCardioMinutes,
+                FinishCardioMinutes = entity.FinishCardioMinutes,
                 Exercises = []
             };
 
@@ -196,7 +247,9 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 {
                     Id = x.Id,
                     Name = x.Name,
-                    Cycles = x.Cycles
+                    Cycles = x.Cycles,
+                    TotalCountIterations = x.TotalCountIterations,
+                    TotalWeight = x.TotalWeight
                 })
                 .ToList();
 

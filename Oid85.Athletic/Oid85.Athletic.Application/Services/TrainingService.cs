@@ -103,10 +103,14 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<GetTrainingResponse?> GetTrainingAsync(GetTrainingRequest request)
         {
-            var training = await trainingRepository.GetTrainingByIdAsync(request.Id);
+            var training = await trainingRepository.GetTrainingByIdAsync(request.Id);           
 
             if (training is null)
                 return new();
+
+            var intensity = await GetTrainingIntensityAsync(training!.Id);
+            if (intensity.TotalCountIterations.HasValue) await trainingRepository.EditTrainingTotalCountIterationsAsync(training.Id, intensity.TotalCountIterations.Value);
+            if (intensity.TotalWeight.HasValue) await trainingRepository.EditTrainingTotalWeightAsync(training.Id, intensity.TotalWeight.Value);
 
             var response = new GetTrainingResponse() 
             { 
@@ -117,8 +121,8 @@ namespace Oid85.Athletic.Application.Services
                     Cycles = training.Cycles,
                     StartCardioMinutes = training.StartCardioMinutes,
                     FinishCardioMinutes = training.FinishCardioMinutes,
-                    TotalCountIterations = training.Exercises!.Sum(x => x.CountIterations) * training.Cycles,
-                    TotalWeight = training.Exercises!.Sum(x => x.Weight) * training.Cycles,
+                    TotalCountIterations = training.TotalCountIterations,
+                    TotalWeight = training.TotalWeight,
                     Exercises = training.Exercises!
                         .Select(x => new ExerciseItemResponse
                         {
@@ -142,30 +146,38 @@ namespace Oid85.Athletic.Application.Services
             var trainings = await trainingRepository.GetTrainingsAsync();
 
             if (trainings is null)
-                return null;
-            
-            var trainingListItems = new List<TrainingListItemResponse>();
-
-            foreach (var item in trainings)
-            {
-                var training = await trainingRepository.GetTrainingByIdAsync(item.Id);
-
-                trainingListItems.Add(
-                    new TrainingListItemResponse
-                    {
-                        Id = training!.Id,
-                        Name = training.Name,
-                        TotalCountIterations = training.Exercises!.Sum(x => x.CountIterations) * training.Cycles,
-                        TotalWeight = training.Exercises!.Sum(x => x.Weight) * training.Cycles
-                    });
-            }
+                return null;           
 
             var response = new GetTrainingListResponse
             {
-                Trainings = trainingListItems.OrderBy(x => x.TotalCountIterations).ToList(),
+                Trainings = trainings
+                .Select(x =>
+                new TrainingListItemResponse
+                    {
+                        Id = x.Id,
+                        Name = x.Name,
+                        TotalCountIterations = x.TotalCountIterations,
+                        TotalWeight = x.TotalWeight
+                    })
+                .OrderBy(x => x.TotalWeight) 
+                .ToList(),
             };
 
             return response;
+        }
+
+        /// <inheritdoc/>
+        public async Task<(int? TotalCountIterations, double? TotalWeight)> GetTrainingIntensityAsync(Guid id)
+        {
+            var training = await trainingRepository.GetTrainingByIdAsync(id);
+
+            if (training is null)
+                return new();
+
+            var totalCountIterations = training.Exercises!.Sum(x => x.CountIterations) * training.Cycles;
+            var totalWeight = training.Exercises!.Sum(x => x.Weight * x.CountIterations) * training.Cycles;
+
+            return (totalCountIterations, totalWeight);
         }
     }
 }

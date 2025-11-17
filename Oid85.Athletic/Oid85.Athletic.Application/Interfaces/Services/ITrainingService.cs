@@ -48,5 +48,11 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// Получение тренировки по идентификатору
         /// </summary>
         Task<GetTrainingResponse?> GetTrainingAsync(GetTrainingRequest request);
+
+        /// <summary>
+        /// Расчитать интенсивность тренировки (общее кол-во повторений, общий вес)
+        /// </summary>
+        /// <param name="id">Идентификатор тренировки</param>
+        Task<(int? TotalCountIterations, double? TotalWeight)> GetTrainingIntensityAsync(Guid id);
     }
 }
