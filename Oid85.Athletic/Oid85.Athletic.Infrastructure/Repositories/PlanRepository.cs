@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Core.Models;
+using Oid85.Athletic.Infrastructure.Entities;
 
 namespace Oid85.Athletic.Infrastructure.Repositories
 {
@@ -54,6 +55,72 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 .ToList();
 
             return result;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.PlanEntities
+                .Include(x => x.MorningTraining)
+                .Include(x => x.DayTraining)
+                .FirstOrDefaultAsync(x => x.Date == date);
+
+            var trainingEntity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == trainingId);
+
+            if (entity is null)
+            {
+                entity = new PlanEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Date = date,
+                    MorningTraining = null,
+                    DayTraining = trainingEntity
+                };
+
+                await context.AddAsync(entity);
+            }
+
+            else
+                entity.DayTraining = trainingEntity;
+            
+            await context.SaveChangesAsync();
+
+            return entity.Id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> SetMorningTrainingAsync(DateOnly date, Guid trainingId)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.PlanEntities
+                .Include(x => x.MorningTraining)
+                .Include(x => x.DayTraining)
+                .FirstOrDefaultAsync(x => x.Date == date);
+
+            var trainingEntity = await context.TrainingEntities.FirstOrDefaultAsync(x => x.Id == trainingId);
+
+            if (entity is null)
+            {
+                entity = new PlanEntity
+                {
+                    Id = Guid.NewGuid(),
+                    Date = date,
+                    MorningTraining = trainingEntity,
+                    DayTraining = null
+                };
+
+                await context.AddAsync(entity);
+            }
+
+            else
+                entity.MorningTraining = trainingEntity;
+
+            await context.SaveChangesAsync();
+
+            return entity.Id;
         }
     }
 }

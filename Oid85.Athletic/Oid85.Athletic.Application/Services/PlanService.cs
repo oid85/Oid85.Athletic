@@ -1,4 +1,5 @@
-﻿using Oid85.Athletic.Application.Interfaces.Repositories;
+﻿using System.Reflection;
+using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Application.Interfaces.Services;
 using Oid85.Athletic.Common.Helpers;
 using Oid85.Athletic.Core.Models;
@@ -58,6 +59,38 @@ namespace Oid85.Athletic.Application.Services
                 })
                 .OrderBy(x => x.Date)
                 .ToList(),
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
+        public async Task<SetPlanDayTrainingResponse?> SetPlanDayTrainingAsync(SetPlanDayTrainingRequest request)
+        {
+            var id = await planRepository.SetDayTrainingAsync(request.Date, request.TrainingId);
+
+            if (id is null)
+                return null;
+
+            var response = new SetPlanDayTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
+        public async Task<SetPlanMorningTrainingResponse?> SetPlanMorningTrainingAsync(SetPlanMorningTrainingRequest request)
+        {
+            var id = await planRepository.SetMorningTrainingAsync(request.Date, request.TrainingId);
+
+            if (id is null)
+                return null;
+
+            var response = new SetPlanMorningTrainingResponse
+            {
+                Id = id.Value
             };
 
             return response;
