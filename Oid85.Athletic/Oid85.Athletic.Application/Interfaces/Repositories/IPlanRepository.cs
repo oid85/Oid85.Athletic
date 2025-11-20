@@ -14,6 +14,16 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<List<Plan>?> GetPlansAsync(DateOnly from, DateOnly to);
 
         /// <summary>
+        /// Удалить дневную тренировку
+        /// </summary>
+        Task<Guid?> RemoveDayTrainingAsync(DateOnly date);
+
+        /// <summary>
+        /// Удалить утреннюю тренировку
+        /// </summary>
+        Task<Guid?> RemoveMorningTrainingAsync(DateOnly date);
+
+        /// <summary>
         /// Установить утреннюю тренировку
         /// </summary>
         Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId);

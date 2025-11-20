@@ -58,4 +58,30 @@ public class PlanController(
         GetResponseAsync(
             () => planService.SetPlanDayTrainingAsync(request),
             result => new BaseResponse<SetPlanDayTrainingResponse> { Result = result });
+
+    /// <summary>
+    /// Удалить утреннюю тренировку
+    /// </summary>
+    [HttpPost("remove/morning")]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanMorningTrainingResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanMorningTrainingResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanMorningTrainingResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> RemovePlanMorningTrainingAsync(
+        [FromBody] RemovePlanMorningTrainingRequest request) =>
+        GetResponseAsync(
+            () => planService.RemovePlanMorningTrainingAsync(request),
+            result => new BaseResponse<RemovePlanMorningTrainingResponse> { Result = result });
+
+    /// <summary>
+    /// Удалить дневную тренировку
+    /// </summary>
+    [HttpPost("remove/day")]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanDayTrainingResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanDayTrainingResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<RemovePlanDayTrainingResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> RemovePlanDayTrainingAsync(
+        [FromBody] RemovePlanDayTrainingRequest request) =>
+        GetResponseAsync(
+            () => planService.RemovePlanDayTrainingAsync(request),
+            result => new BaseResponse<RemovePlanDayTrainingResponse> { Result = result });
 }

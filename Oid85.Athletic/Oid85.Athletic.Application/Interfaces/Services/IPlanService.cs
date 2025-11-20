@@ -23,5 +23,15 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// Запланировать дневную тренировку
         /// </summary>
         Task<SetPlanDayTrainingResponse?> SetPlanDayTrainingAsync(SetPlanDayTrainingRequest request);
+
+        /// <summary>
+        /// Удалить утреннюю тренировку
+        /// </summary>
+        Task<RemovePlanMorningTrainingResponse?> RemovePlanMorningTrainingAsync(RemovePlanMorningTrainingRequest request);
+
+        /// <summary>
+        /// Удалить дневную тренировку
+        /// </summary>
+        Task<RemovePlanDayTrainingResponse?> RemovePlanDayTrainingAsync(RemovePlanDayTrainingRequest request);
     }
 }

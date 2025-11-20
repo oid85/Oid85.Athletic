@@ -58,6 +58,46 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<Guid?> RemoveDayTrainingAsync(DateOnly date)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.PlanEntities
+                .Include(x => x.MorningTraining)
+                .Include(x => x.DayTraining)
+                .FirstOrDefaultAsync(x => x.Date == date);
+
+            if (entity is null)
+                return null;
+
+            entity.DayTraining = null;
+
+            await context.SaveChangesAsync();
+
+            return entity.Id;
+        }
+
+        /// <inheritdoc/>
+        public async Task<Guid?> RemoveMorningTrainingAsync(DateOnly date)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.PlanEntities
+                .Include(x => x.MorningTraining)
+                .Include(x => x.DayTraining)
+                .FirstOrDefaultAsync(x => x.Date == date);
+
+            if (entity is null)
+                return null;
+
+            entity.MorningTraining = null;
+
+            await context.SaveChangesAsync();
+
+            return entity.Id;
+        }
+
+        /// <inheritdoc/>
         public async Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId)
         {
             await using var context = await contextFactory.CreateDbContextAsync();

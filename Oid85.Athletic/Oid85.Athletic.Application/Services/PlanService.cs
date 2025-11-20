@@ -65,6 +65,38 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
+        public async Task<RemovePlanDayTrainingResponse?> RemovePlanDayTrainingAsync(RemovePlanDayTrainingRequest request)
+        {
+            var id = await planRepository.RemoveDayTrainingAsync(request.Date);
+
+            if (id is null)
+                return null;
+
+            var response = new RemovePlanDayTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
+        public async Task<RemovePlanMorningTrainingResponse?> RemovePlanMorningTrainingAsync(RemovePlanMorningTrainingRequest request)
+        {
+            var id = await planRepository.RemoveMorningTrainingAsync(request.Date);
+
+            if (id is null)
+                return null;
+
+            var response = new RemovePlanMorningTrainingResponse
+            {
+                Id = id.Value
+            };
+
+            return response;
+        }
+
+        /// <inheritdoc/>
         public async Task<SetPlanDayTrainingResponse?> SetPlanDayTrainingAsync(SetPlanDayTrainingRequest request)
         {
             var id = await planRepository.SetDayTrainingAsync(request.Date, request.TrainingId);
