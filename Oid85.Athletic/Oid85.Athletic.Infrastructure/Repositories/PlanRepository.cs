@@ -38,13 +38,17 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                     new Training
                     {
                         Id = x.MorningTraining.Id,
-                        Name = x.MorningTraining.Name
+                        Name = x.MorningTraining.Name,
+                        TotalCountIterations = x.MorningTraining.TotalCountIterations,
+                        TotalWeight = x.MorningTraining.TotalWeight
                     },
                     DayTraining = x.DayTraining == null ? null :
                     new Training
                     {
                         Id = x.DayTraining.Id,
-                        Name = x.DayTraining.Name
+                        Name = x.DayTraining.Name,
+                        TotalCountIterations = x.DayTraining.TotalCountIterations,
+                        TotalWeight = x.DayTraining.TotalWeight
                     }
                 })
                 .ToList();

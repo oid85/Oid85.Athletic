@@ -43,13 +43,17 @@ namespace Oid85.Athletic.Application.Services
                         new TrainingItemResponse 
                         { 
                             Id = x.MorningTraining.Id,
-                            Name = x.MorningTraining.Name
+                            Name = x.MorningTraining.Name,
+                            TotalCountIterations = x.MorningTraining.TotalCountIterations,
+                            TotalWeight = x.MorningTraining.TotalWeight
                         },
                     DayTraining = x.DayTraining is null ? null :
                         new TrainingItemResponse
                         {
                             Id = x.DayTraining.Id,
-                            Name = x.DayTraining.Name
+                            Name = x.DayTraining.Name,
+                            TotalCountIterations = x.DayTraining.TotalCountIterations,
+                            TotalWeight = x.DayTraining.TotalWeight
                         }
                 })
                 .OrderBy(x => x.Date)
