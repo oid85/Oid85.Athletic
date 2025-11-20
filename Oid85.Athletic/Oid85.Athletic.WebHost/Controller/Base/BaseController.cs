@@ -5,7 +5,7 @@ using Oid85.Athletic.Core.Exceptions;
 namespace Oid85.Athletic.WebHost.Controller.Base;
 
 [ApiController]
-public abstract class AthleticBaseController : ControllerBase
+public abstract class BaseController : ControllerBase
 {
     [ApiExplorerSettings(IgnoreApi = true)]
     protected async Task<IActionResult> GetResponseAsync<TData, TResult>(Func<Task> mainLogic) =>

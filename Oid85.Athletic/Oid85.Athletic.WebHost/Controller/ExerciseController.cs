@@ -14,7 +14,7 @@ namespace Oid85.Athletic.WebHost.Controller;
 [ApiController]
 public class ExerciseController(
     IExerciseService exerciseService)
-    : AthleticBaseController
+    : BaseController
 {
     /// <summary>
     /// Добавить упражнение в тренировку

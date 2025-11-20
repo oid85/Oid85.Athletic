@@ -12,5 +12,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IExerciseTemplateService, ExerciseTemplateService>();
         services.AddTransient<IExerciseService, ExerciseService>();
         services.AddTransient<ITrainingService, TrainingService>();
+        services.AddTransient<IPlanService, PlanService>();
     }
 }

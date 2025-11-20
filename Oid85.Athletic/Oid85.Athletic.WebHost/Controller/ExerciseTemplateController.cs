@@ -14,7 +14,7 @@ namespace Oid85.Athletic.WebHost.Controller;
 [ApiController]
 public class ExerciseTemplateController(
     IExerciseTemplateService exerciseTemplateService)
-    : AthleticBaseController
+    : BaseController
 {
     /// <summary>
     /// Получить список шаблонов упражнений

@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Oid85.Athletic.Common\Oid85.Athletic.Common.csproj" />
     <ProjectReference Include="..\Oid85.Athletic.Core\Oid85.Athletic.Core.csproj" />
   </ItemGroup>
 

@@ -14,7 +14,7 @@ namespace Oid85.Athletic.WebHost.Controller;
 [ApiController]
 public class TrainingController(
     ITrainingService trainingService)
-    : AthleticBaseController
+    : BaseController
 {
     /// <summary>
     /// Получить список тренировок
