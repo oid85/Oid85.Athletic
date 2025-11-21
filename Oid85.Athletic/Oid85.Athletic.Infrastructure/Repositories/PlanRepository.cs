@@ -2,6 +2,7 @@
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Oid85.Athletic.Infrastructure.Repositories
 {
@@ -10,6 +11,44 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         IDbContextFactory<AthleticContext> contextFactory)
         : IPlanRepository
     {
+        /// <inheritdoc/>
+        public async Task<Plan?> GetPlanByIdAsync(Guid planId)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.PlanEntities
+                .Include(x => x.MorningTraining)
+                .Include(x => x.DayTraining)
+                .FirstOrDefaultAsync(x => x.Id == planId);
+
+            if (entity is null)
+                return null;
+
+            var result = new Plan
+            {
+                Id = entity.Id,
+                Date = entity.Date,
+                MorningTraining = entity.MorningTraining == null ? null :
+                    new Training
+                    {
+                        Id = entity.MorningTraining.Id,
+                        Name = entity.MorningTraining.Name,
+                        TotalCountIterations = entity.MorningTraining.TotalCountIterations,
+                        TotalWeight = entity.MorningTraining.TotalWeight
+                    },
+                DayTraining = entity.DayTraining == null ? null :
+                    new Training
+                    {
+                        Id = entity.DayTraining.Id,
+                        Name = entity.DayTraining.Name,
+                        TotalCountIterations = entity.DayTraining.TotalCountIterations,
+                        TotalWeight = entity.DayTraining.TotalWeight
+                    }
+            };
+
+            return result;
+        }
+
         /// <inheritdoc/>
         public async Task<List<Plan>?> GetPlansAsync(DateOnly from, DateOnly to)
         {
@@ -58,39 +97,25 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<Guid?> RemoveDayTrainingAsync(DateOnly date)
+        public async Task<Guid?> RemoveTrainingAsync(Guid planId, Guid trainingId)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var entity = await context.PlanEntities
                 .Include(x => x.MorningTraining)
                 .Include(x => x.DayTraining)
-                .FirstOrDefaultAsync(x => x.Date == date);
+                .FirstOrDefaultAsync(x => x.Id == planId);
 
             if (entity is null)
                 return null;
 
-            entity.DayTraining = null;
+            if (entity.MorningTraining is not null)
+                if (entity.MorningTraining.Id == trainingId)
+                    entity.MorningTraining = null;
 
-            await context.SaveChangesAsync();
-
-            return entity.Id;
-        }
-
-        /// <inheritdoc/>
-        public async Task<Guid?> RemoveMorningTrainingAsync(DateOnly date)
-        {
-            await using var context = await contextFactory.CreateDbContextAsync();
-
-            var entity = await context.PlanEntities
-                .Include(x => x.MorningTraining)
-                .Include(x => x.DayTraining)
-                .FirstOrDefaultAsync(x => x.Date == date);
-
-            if (entity is null)
-                return null;
-
-            entity.MorningTraining = null;
+            if (entity.DayTraining is not null)
+                if (entity.DayTraining.Id == trainingId)
+                    entity.DayTraining = null;
 
             await context.SaveChangesAsync();
 

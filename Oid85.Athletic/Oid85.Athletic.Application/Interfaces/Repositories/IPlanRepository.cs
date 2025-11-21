@@ -9,19 +9,19 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
     public interface IPlanRepository
     {
         /// <summary>
+        /// Получить план по идентификатору
+        /// </summary>
+        Task<Plan?> GetPlanByIdAsync(Guid planId);
+
+        /// <summary>
         /// Получить планы за период
         /// </summary>
         Task<List<Plan>?> GetPlansAsync(DateOnly from, DateOnly to);
 
         /// <summary>
-        /// Удалить дневную тренировку
+        /// Удалить тренировку
         /// </summary>
-        Task<Guid?> RemoveDayTrainingAsync(DateOnly date);
-
-        /// <summary>
-        /// Удалить утреннюю тренировку
-        /// </summary>
-        Task<Guid?> RemoveMorningTrainingAsync(DateOnly date);
+        Task<Guid?> RemoveTrainingAsync(Guid planId, Guid trainingId);
 
         /// <summary>
         /// Установить утреннюю тренировку

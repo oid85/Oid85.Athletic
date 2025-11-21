@@ -3,7 +3,7 @@
     /// <summary>
     /// Удалить утреннюю тренировку
     /// </summary>
-    public class RemovePlanMorningTrainingResponse
+    public class RemovePlanTrainingResponse
     {
         /// <summary>
         /// Идентификатор

@@ -65,36 +65,22 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task<RemovePlanDayTrainingResponse?> RemovePlanDayTrainingAsync(RemovePlanDayTrainingRequest request)
+        public async Task<RemovePlanTrainingResponse?> RemovePlanTrainingAsync(RemovePlanTrainingRequest request)
         {
-            if (request.Date < DateOnly.FromDateTime(DateTime.Today))
+            var plan = await planRepository.GetPlanByIdAsync(request.PlanId);
+
+            if (plan is null)
                 return null;
 
-            var id = await planRepository.RemoveDayTrainingAsync(request.Date);
+            if (plan.Date < DateOnly.FromDateTime(DateTime.Today))
+                return null;
+
+            var id = await planRepository.RemoveTrainingAsync(request.PlanId, request.TrainingId);
 
             if (id is null)
                 return null;
 
-            var response = new RemovePlanDayTrainingResponse
-            {
-                Id = id.Value
-            };
-
-            return response;
-        }
-
-        /// <inheritdoc/>
-        public async Task<RemovePlanMorningTrainingResponse?> RemovePlanMorningTrainingAsync(RemovePlanMorningTrainingRequest request)
-        {
-            if (request.Date < DateOnly.FromDateTime(DateTime.Today))
-                return null;
-
-            var id = await planRepository.RemoveMorningTrainingAsync(request.Date);
-
-            if (id is null)
-                return null;
-
-            var response = new RemovePlanMorningTrainingResponse
+            var response = new RemovePlanTrainingResponse
             {
                 Id = id.Value
             };
