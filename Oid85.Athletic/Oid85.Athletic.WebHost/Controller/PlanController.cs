@@ -28,8 +28,8 @@ public class PlanController(
             () => planService.GetPlanListAsync(
                 new GetPlanListRequest
                 {
-                    From = DateOnly.FromDateTime(DateTime.Today.AddDays(-4)),
-                    To = DateOnly.FromDateTime(DateTime.Today.AddDays(2))
+                    From = DateOnly.FromDateTime(DateTime.Today.AddDays(-3)),
+                    To = DateOnly.FromDateTime(DateTime.Today.AddDays(3))
                 }),
             result => new BaseResponse<GetPlanListResponse> { Result = result });
 

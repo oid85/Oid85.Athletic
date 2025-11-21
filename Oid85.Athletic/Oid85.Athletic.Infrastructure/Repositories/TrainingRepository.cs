@@ -19,7 +19,9 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             {
                 Id = Guid.NewGuid(),
                 Name = model.Name,
-                Cycles = model.Cycles
+                Cycles = model.Cycles,
+                StartCardioMinutes = model.StartCardioMinutes,
+                FinishCardioMinutes = model.FinishCardioMinutes
             };                       
 
             await context.AddAsync(entity);
