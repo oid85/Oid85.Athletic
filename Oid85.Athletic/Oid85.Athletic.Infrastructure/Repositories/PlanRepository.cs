@@ -55,6 +55,8 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var entities = context.PlanEntities
+                .Where(x => x.Date >= from)
+                .Where(x => x.Date <= to)
                 .Include(x => x.MorningTraining)
                 .Include(x => x.DayTraining)
                 .AsQueryable();
