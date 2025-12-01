@@ -5,9 +5,6 @@
     /// </summary>
     public class GetExerciseTemplateListRequest
     {
-        /// <summary>
-        /// Оборудование
-        /// </summary>
-        public string? Equipment { get; set; } = null;
+
     }
 }

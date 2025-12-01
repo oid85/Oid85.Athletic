@@ -18,9 +18,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             var entity = new ExerciseTemplateEntity
             {
                 Id = Guid.NewGuid(),
-                Name = model.Name,
-                Equipment = model.Equipment,
-                Muscles = model.Muscles
+                Name = model.Name
             };
 
             await context.AddAsync(entity);
@@ -48,9 +46,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await context.ExerciseTemplateEntities
                 .Where(x => x.Id == model.Id)
                 .ExecuteUpdateAsync(x => x
-                        .SetProperty(entity => entity.Name, model.Name)
-                        .SetProperty(entity => entity.Muscles, model.Muscles)
-                        .SetProperty(entity => entity.Equipment, model.Equipment));
+                        .SetProperty(entity => entity.Name, model.Name));
 
             await context.SaveChangesAsync();
 
@@ -58,7 +54,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<List<ExerciseTemplate>?> GetExerciseTemplatesAsync(string? equipment)
+        public async Task<List<ExerciseTemplate>?> GetExerciseTemplatesAsync()
         {
             await using var context = await contextFactory.CreateDbContextAsync();
 
@@ -66,9 +62,6 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             if (entities is null)
                 return null;
-
-            if (!string.IsNullOrEmpty(equipment))
-                entities = entities.Where(x => x.Equipment == equipment);
 
             entities = entities.OrderBy(x => x.Name);
 
@@ -81,9 +74,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 .Select(x => new ExerciseTemplate
                 {
                     Id = x.Id,
-                    Name = x.Name,
-                    Equipment = x.Equipment,
-                    Muscles = x.Muscles,
+                    Name = x.Name
                 })
                 .ToList();
 

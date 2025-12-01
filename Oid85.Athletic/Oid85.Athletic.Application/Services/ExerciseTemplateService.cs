@@ -16,9 +16,7 @@ namespace Oid85.Athletic.Application.Services
         {
             var model = new ExerciseTemplate
             {
-                Name = request.Name,
-                Equipment = request.Equipment,
-                Muscles = request.Muscles
+                Name = request.Name
             };
 
             var id = await exerciseTemplateRepository.CreateExerciseTemplateAsync(model);
@@ -56,9 +54,7 @@ namespace Oid85.Athletic.Application.Services
             var model = new ExerciseTemplate
             {
                 Id = request.Id,
-                Name = request.Name,
-                Equipment = request.Equipment,
-                Muscles = request.Muscles
+                Name = request.Name
             };
 
             var id = await exerciseTemplateRepository.EditExerciseTemplateAsync(model);
@@ -77,7 +73,7 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<GetExerciseTemplateListResponse?> GetExerciseTemplateListAsync(GetExerciseTemplateListRequest request)
         {
-            var exerciseTemplates = await exerciseTemplateRepository.GetExerciseTemplatesAsync(request.Equipment);
+            var exerciseTemplates = await exerciseTemplateRepository.GetExerciseTemplatesAsync();
 
             if (exerciseTemplates is null)
                 return null;
@@ -88,9 +84,7 @@ namespace Oid85.Athletic.Application.Services
                     .Select(x => new ExerciseTemplateListItemResponse
                     {
                         Id = x.Id,
-                        Name = x.Name,
-                        Equipment = x.Equipment,
-                        Muscles = x.Muscles
+                        Name = x.Name
                     }).ToList()
             };
 

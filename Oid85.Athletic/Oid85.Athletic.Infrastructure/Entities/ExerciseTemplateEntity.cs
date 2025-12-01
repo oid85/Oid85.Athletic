@@ -14,17 +14,5 @@ namespace Oid85.Athletic.Infrastructure.Entities
         [MaxLength(500)]
         [Required]
         public string Name { get; set; } = string.Empty;
-
-        /// <summary>
-        /// Задействованные мышцы
-        /// </summary>
-        [MaxLength(500)]
-        public string? Muscles { get; set; }
-
-        /// <summary>
-        /// Оборудование
-        /// </summary>
-        [MaxLength(500)]
-        public string? Equipment { get; set; }
     }
 }

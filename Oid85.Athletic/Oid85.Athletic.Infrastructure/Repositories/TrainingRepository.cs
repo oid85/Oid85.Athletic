@@ -162,9 +162,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                         ExerciseTemplate = new ExerciseTemplate
                         {
                             Id = x.ExerciseTemplate.Id,
-                            Name = x.ExerciseTemplate.Name,
-                            Equipment = x.ExerciseTemplate.Equipment,
-                            Muscles = x.ExerciseTemplate.Muscles
+                            Name = x.ExerciseTemplate.Name
                         },
                         Id = x.Id,
                         CountIterations = x.CountIterations,
@@ -211,9 +209,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                         ExerciseTemplate = new ExerciseTemplate
                         {
                             Id = x.ExerciseTemplate.Id,
-                            Name = x.ExerciseTemplate.Name,
-                            Equipment = x.ExerciseTemplate.Equipment,
-                            Muscles = x.ExerciseTemplate.Muscles
+                            Name = x.ExerciseTemplate.Name
                         },
                         Id = x.Id,
                         CountIterations = x.CountIterations,
