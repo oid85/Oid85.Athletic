@@ -13,5 +13,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<IExerciseService, ExerciseService>();
         services.AddTransient<ITrainingService, TrainingService>();
         services.AddTransient<IPlanService, PlanService>();
+        services.AddTransient<IPressureService, PressureService>();
     }
 }
