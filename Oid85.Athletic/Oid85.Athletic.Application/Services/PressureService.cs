@@ -17,7 +17,8 @@ namespace Oid85.Athletic.Application.Services
         {
             var model = new Pressure
             {
-                DateTime = DateTime.Now,
+                Date = DateOnly.FromDateTime(DateTime.Now),
+                Time = TimeOnly.FromDateTime(DateTime.Now),
                 Sys = request.Sys,
                 Dia = request.Dia,
                 Pulse = request.Pulse
@@ -40,6 +41,25 @@ namespace Oid85.Athletic.Application.Services
         public async Task<GetPressureListResponse?> GetPressureListAsync(GetPressureListRequest request)
         {
             var dates = DateHelper.GetDates(request.From, request.To);
+            List<TimeOnly> times = 
+                [
+                    TimeOnly.Parse("08:00"),
+                    TimeOnly.Parse("09:00"),
+                    TimeOnly.Parse("10:00"),
+                    TimeOnly.Parse("12:00"),
+                    TimeOnly.Parse("13:00"),
+                    TimeOnly.Parse("14:00"),
+                    TimeOnly.Parse("15:00"),
+                    TimeOnly.Parse("16:00"),
+                    TimeOnly.Parse("17:00"),
+                    TimeOnly.Parse("18:00"),
+                    TimeOnly.Parse("19:00"),
+                    TimeOnly.Parse("20:00"),
+                    TimeOnly.Parse("21:00"),
+                    TimeOnly.Parse("22:00"),
+                    TimeOnly.Parse("23:00")
+                ];
+
             var pressures = await pressureRepository.GetPressuresAsync(request.From, request.To);
 
             if (pressures is null)
@@ -50,19 +70,21 @@ namespace Oid85.Athletic.Application.Services
                 DayItems = dates.Select(date => new GetPressureListDayItem 
                 { 
                     Date = date, 
-                    IntraDayItems = pressures
-                    .Where(pressure => pressure.DateTime >= date.ToDateTime(TimeOnly.MinValue) && pressure.DateTime <= date.ToDateTime(TimeOnly.MaxValue))
-                    .Select(pressure => new GetPressureListIntraDayItem
-                    {
-                        Time = TimeOnly.FromDateTime(pressure.DateTime),
-                        Dia = pressure.Dia, 
-                        Sys = pressure.Sys,
-                        Pulse = pressure.Pulse
-                    }).ToList()
+                    IntraDayItems = times.Select(x => GetPressure(date, x)).ToList()
                 }).ToList()
             };
 
             return response;
+
+            GetPressureListIntraDayItem GetPressure(DateOnly date, TimeOnly time)
+            {
+                var pressure = pressures.Find(x => x.Date == date && x.Time == time);
+
+                if (pressure is null)
+                    return new GetPressureListIntraDayItem { Time = time };
+
+                return new GetPressureListIntraDayItem { Time = time, Sys = pressure.Sys, Dia = pressure.Dia, Pulse = pressure.Pulse };
+            }
         }
     }
 }

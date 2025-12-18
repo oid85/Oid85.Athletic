@@ -18,8 +18,8 @@
     public class GetPressureListIntraDayItem
     {
         public TimeOnly Time { get; set; }
-        public int Sys { get; set; }
-        public int Dia { get; set; }
+        public int? Sys { get; set; }
+        public int? Dia { get; set; }
         public int? Pulse { get; set; }
     }
 }

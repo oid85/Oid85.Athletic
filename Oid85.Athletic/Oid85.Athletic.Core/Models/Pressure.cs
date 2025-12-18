@@ -12,7 +12,12 @@ namespace Oid85.Athletic.Core.Models
         /// <summary>
         /// Дата и время измерения
         /// </summary>
-        public DateTime DateTime { get; set; }
+        public DateOnly Date { get; set; }
+
+        /// <summary>
+        /// Дата и время измерения
+        /// </summary>
+        public TimeOnly Time { get; set; }
 
         /// <summary>
         /// Систолическое

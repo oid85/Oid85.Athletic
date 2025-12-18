@@ -18,7 +18,8 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             var entity = new PressureEntity
             {
                 Id = Guid.NewGuid(),
-                DateTime = DateTime.Now,
+                Date = model.Date,
+                Time = model.Time,
                 Sys = model.Sys,
                 Dia = model.Dia,
                 Pulse = model.Pulse
@@ -36,14 +37,12 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             await using var context = await contextFactory.CreateDbContextAsync();
 
             var entities = context.PressureEntities
-                .Where(x => x.DateTime >= from.ToDateTime(TimeOnly.MinValue))
-                .Where(x => x.DateTime <= to.ToDateTime(TimeOnly.MinValue))
+                .Where(x => x.Date >= from)
+                .Where(x => x.Date <= to)
                 .AsQueryable();
 
             if (entities is null)
                 return null;
-
-            entities = entities.OrderBy(x => x.DateTime);
 
             var filteredEntities = await entities.AsNoTracking().ToListAsync();
 
@@ -54,7 +53,8 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 .Select(x => new Pressure
                 {
                     Id = x.Id,
-                    DateTime = x.DateTime,
+                    Date = x.Date,
+                    Time = x.Time,
                     Sys = x.Sys,
                     Dia = x.Dia,
                     Pulse = x.Pulse

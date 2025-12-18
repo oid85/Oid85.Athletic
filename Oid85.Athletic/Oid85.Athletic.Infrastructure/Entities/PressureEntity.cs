@@ -12,8 +12,12 @@ namespace Oid85.Athletic.Infrastructure.Entities
         /// <summary>
         /// Дата и время измерения
         /// </summary>
-        [Required]
-        public DateTime DateTime { get; set; }
+        public DateOnly Date { get; set; }
+
+        /// <summary>
+        /// Дата и время измерения
+        /// </summary>
+        public TimeOnly Time { get; set; }
 
         /// <summary>
         /// Систолическое
