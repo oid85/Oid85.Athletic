@@ -46,6 +46,7 @@ namespace Oid85.Athletic.Application.Services
                     TimeOnly.Parse("08:00"),
                     TimeOnly.Parse("09:00"),
                     TimeOnly.Parse("10:00"),
+                    TimeOnly.Parse("11:00"),
                     TimeOnly.Parse("12:00"),
                     TimeOnly.Parse("13:00"),
                     TimeOnly.Parse("14:00"),
@@ -78,7 +79,8 @@ namespace Oid85.Athletic.Application.Services
 
             GetPressureListIntraDayItem GetPressure(DateOnly date, TimeOnly time)
             {
-                var pressure = pressures.Find(x => x.Date == date && x.Time == time);
+                var pressure = pressures.Find(
+                    x => x.Date == date && x.Time > time.AddMinutes(-30) && x.Time < time.AddMinutes(30));
 
                 if (pressure is null)
                     return new GetPressureListIntraDayItem { Time = time };
