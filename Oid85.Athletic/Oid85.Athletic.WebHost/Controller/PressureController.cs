@@ -29,7 +29,7 @@ public class PressureController(
             () => pressureService.GetPressureListAsync(
                 new GetPressureListRequest
                 {
-                    From = DateOnly.FromDateTime(DateTime.Today.AddDays(-7)),
+                    From = DateOnly.FromDateTime(DateTime.Today.AddDays(-14)),
                     To = DateOnly.FromDateTime(DateTime.Today)
                 }),
             result => new BaseResponse<GetPressureListResponse> { Result = result });

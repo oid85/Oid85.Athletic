@@ -40,7 +40,7 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<GetPressureListResponse?> GetPressureListAsync(GetPressureListRequest request)
         {
-            var dates = DateHelper.GetDates(request.From, request.To);
+            var dates = DateHelper.GetDates(request.From, request.To).OrderDescending();
             List<TimeOnly> times = 
                 [
                     TimeOnly.Parse("08:00"),
