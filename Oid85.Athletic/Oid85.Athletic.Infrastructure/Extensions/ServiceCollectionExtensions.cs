@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ITrainingRepository, TrainingRepository>();
         services.AddTransient<IPlanRepository, PlanRepository>();
         services.AddTransient<IPressureRepository, PressureRepository>();
+        services.AddTransient<IGlucoseRepository, GlucoseRepository>();
     }
 
     public static async Task ApplyMigrations(this IHost host)

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using Oid85.Athletic.Infrastructure.Entities.Base;
+﻿using Oid85.Athletic.Infrastructure.Entities.Base;
 
 namespace Oid85.Athletic.Infrastructure.Entities
 {
@@ -10,12 +8,12 @@ namespace Oid85.Athletic.Infrastructure.Entities
     public class PressureEntity : BaseEntity
     {
         /// <summary>
-        /// Дата и время измерения
+        /// Дата измерения
         /// </summary>
         public DateOnly Date { get; set; }
 
         /// <summary>
-        /// Дата и время измерения
+        /// Время измерения
         /// </summary>
         public TimeOnly Time { get; set; }
 

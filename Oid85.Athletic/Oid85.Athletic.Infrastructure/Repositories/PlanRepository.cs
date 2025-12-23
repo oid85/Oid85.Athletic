@@ -2,7 +2,6 @@
 using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Core.Models;
 using Oid85.Athletic.Infrastructure.Entities;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Oid85.Athletic.Infrastructure.Repositories
 {

@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Oid85.Athletic.Application.Interfaces.Repositories;
+﻿using Oid85.Athletic.Application.Interfaces.Repositories;
 using Oid85.Athletic.Application.Interfaces.Services;
 using Oid85.Athletic.Common.Helpers;
 using Oid85.Athletic.Core.Models;

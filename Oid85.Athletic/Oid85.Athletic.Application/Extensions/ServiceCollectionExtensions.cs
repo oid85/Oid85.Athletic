@@ -14,5 +14,6 @@ public static class ServiceCollectionExtensions
         services.AddTransient<ITrainingService, TrainingService>();
         services.AddTransient<IPlanService, PlanService>();
         services.AddTransient<IPressureService, PressureService>();
+        services.AddTransient<IGlucoseService, GlucoseService>();
     }
 }
