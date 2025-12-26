@@ -28,7 +28,7 @@ public class GlucoseController(
             () => glucoseService.GetGlucoseListAsync(
                 new GetGlucoseListRequest
                 {
-                    From = DateOnly.FromDateTime(DateTime.Today.AddDays(-14)),
+                    From = DateOnly.FromDateTime(DateTime.Today.AddMonths(-1)),
                     To = DateOnly.FromDateTime(DateTime.Today)
                 }),
             result => new BaseResponse<GetGlucoseListResponse> { Result = result });
