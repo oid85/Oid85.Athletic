@@ -24,6 +24,11 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Glucose?> GetGlucoseByIdAsync(Guid id);
 
         /// <summary>
+        /// Получить измерение по дате
+        /// </summary>        
+        Task<Glucose?> GetGlucoseByDateAsync(DateOnly date);
+
+        /// <summary>
         /// Получить измерения за период
         /// </summary>
         Task<List<Glucose>?> GetGlucosesAsync(DateOnly from, DateOnly to);

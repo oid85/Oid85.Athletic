@@ -6,9 +6,9 @@
     public class SetGlucoseRequest
     {
         /// <summary>
-        /// Идентификатор
+        /// Дата
         /// </summary>
-        public Guid Id { get; set; }
+        public DateOnly Date { get; set; }
 
         /// <summary>
         /// Тип измерения

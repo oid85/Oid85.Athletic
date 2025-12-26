@@ -64,27 +64,28 @@ namespace Oid85.Athletic.Application.Services
         /// <inheritdoc/>
         public async Task<SetGlucoseResponse?> SetGlucoseAsync(SetGlucoseRequest request)
         {
-            Guid? id = request.Id;
-            var glucose = await glucoseRepository.GetGlucoseByIdAsync(request.Id);
+            var glucose = await glucoseRepository.GetGlucoseByDateAsync(request.Date);
 
             if (glucose is null)
-                id = await glucoseRepository.CreateGlucoseAsync(
+            {
+                var id = await glucoseRepository.CreateGlucoseAsync(
                     new Glucose
                     {
                         Date = DateOnly.FromDateTime(DateTime.Today),
-                        BeforeMorningFood = null, 
-                        AfterMorningFood = null, 
+                        BeforeMorningFood = null,
+                        AfterMorningFood = null,
                         BeforeTraining = null,
-                        AfterTraining = null, 
-                        BeforeEveningFood = null, 
+                        AfterTraining = null,
+                        BeforeEveningFood = null,
                         BeforeNight = null
                     });
 
-            if (!id.HasValue)
-                return null;
+                if (!id.HasValue)
+                    return null;
 
-            glucose = await glucoseRepository.GetGlucoseByIdAsync(id.Value);
-
+                glucose = await glucoseRepository.GetGlucoseByDateAsync(request.Date);
+            }
+            
             if (glucose is  null)
                 return null;
 
@@ -118,12 +119,12 @@ namespace Oid85.Athletic.Application.Services
                     break;
             }
 
-            id = await glucoseRepository.EditGlucoseAsync(glucose);
+            var glucoseId = await glucoseRepository.EditGlucoseAsync(glucose);
 
-            if (!id.HasValue)
+            if (!glucoseId.HasValue)
                 return null;
 
-            var response = new SetGlucoseResponse() { Id = id.Value };
+            var response = new SetGlucoseResponse() { Id = glucoseId.Value };
 
             return response;
         }

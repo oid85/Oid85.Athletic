@@ -81,6 +81,31 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<Glucose?> GetGlucoseByDateAsync(DateOnly date)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entity = await context.GlucoseEntities.FirstOrDefaultAsync(x => x.Date == date);
+
+            if (entity is null)
+                return null;
+
+            var model = new Glucose
+            {
+                Id = entity.Id,
+                Date = entity.Date,
+                BeforeMorningFood = entity.BeforeMorningFood,
+                AfterMorningFood = entity.AfterMorningFood,
+                BeforeTraining = entity.BeforeTraining,
+                AfterTraining = entity.AfterTraining,
+                BeforeEveningFood = entity.BeforeEveningFood,
+                BeforeNight = entity.BeforeNight
+            };
+
+            return model;
+        }
+
+        /// <inheritdoc/>
         public async Task<List<Glucose>?> GetGlucosesAsync(DateOnly from, DateOnly to)
         {
             await using var context = await contextFactory.CreateDbContextAsync();
@@ -110,6 +135,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                     BeforeEveningFood = x.BeforeEveningFood,
                     BeforeNight = x.BeforeNight
                 })
+                .OrderByDescending(x => x.Date)
                 .ToList();
 
             return result;
