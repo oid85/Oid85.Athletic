@@ -13,11 +13,6 @@ namespace Oid85.Athletic.Core.Models
         public DateOnly Date { get; set; }
 
         /// <summary>
-        /// Зарядка
-        /// </summary>
-        public Training? MorningTraining { get; set; }
-
-        /// <summary>
         /// Дневная тренировка
         /// </summary>
         public Training? DayTraining { get; set; }

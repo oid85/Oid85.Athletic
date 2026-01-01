@@ -21,7 +21,6 @@ namespace Oid85.Athletic.Application.Services
                 {
                     Id = Guid.NewGuid(),
                     Date = value,
-                    MorningTraining = null,
                     DayTraining = null
                 });
 
@@ -39,14 +38,6 @@ namespace Oid85.Athletic.Application.Services
                 {
                     Id = x.Id,
                     Date = x.Date,
-                    MorningTraining = x.MorningTraining is null ? null : 
-                        new TrainingItemResponse 
-                        { 
-                            Id = x.MorningTraining.Id,
-                            Name = x.MorningTraining.Name,
-                            TotalCountIterations = x.MorningTraining.TotalCountIterations,
-                            TotalWeight = x.MorningTraining.TotalWeight
-                        },
                     DayTraining = x.DayTraining is null ? null :
                         new TrainingItemResponse
                         {
@@ -99,25 +90,6 @@ namespace Oid85.Athletic.Application.Services
                 return null;
 
             var response = new SetPlanDayTrainingResponse
-            {
-                Id = id.Value
-            };
-
-            return response;
-        }
-
-        /// <inheritdoc/>
-        public async Task<SetPlanMorningTrainingResponse?> SetPlanMorningTrainingAsync(SetPlanMorningTrainingRequest request)
-        {
-            if (request.Date < DateOnly.FromDateTime(DateTime.Today))
-                return null;
-
-            var id = await planRepository.SetMorningTrainingAsync(request.Date, request.TrainingId);
-
-            if (id is null)
-                return null;
-
-            var response = new SetPlanMorningTrainingResponse
             {
                 Id = id.Value
             };

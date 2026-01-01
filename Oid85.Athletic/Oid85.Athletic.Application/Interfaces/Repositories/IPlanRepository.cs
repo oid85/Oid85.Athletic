@@ -24,13 +24,8 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         Task<Guid?> RemoveTrainingAsync(Guid planId, Guid trainingId);
 
         /// <summary>
-        /// Установить утреннюю тренировку
-        /// </summary>
-        Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId);
-
-        /// <summary>
         /// Установить дневную тренировку
         /// </summary>
-        Task<Guid?> SetMorningTrainingAsync(DateOnly date, Guid trainingId);
+        Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId);
     }
 }

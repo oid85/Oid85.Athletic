@@ -15,11 +15,6 @@ namespace Oid85.Athletic.Infrastructure.Entities
         public DateOnly Date { get; set; }
 
         /// <summary>
-        /// Зарядка
-        /// </summary>
-        public TrainingEntity? MorningTraining { get; set; }
-
-        /// <summary>
         /// Дневная тренировка
         /// </summary>
         public TrainingEntity? DayTraining { get; set; }

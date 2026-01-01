@@ -34,19 +34,6 @@ public class PlanController(
             result => new BaseResponse<GetPlanListResponse> { Result = result });
 
     /// <summary>
-    /// Запланировать утреннюю тренировку
-    /// </summary>
-    [HttpPost("set/morning")]
-    [ProducesResponseType(typeof(BaseResponse<SetPlanMorningTrainingResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(BaseResponse<SetPlanMorningTrainingResponse>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(BaseResponse<SetPlanMorningTrainingResponse>), StatusCodes.Status500InternalServerError)]
-    public Task<IActionResult> SetPlanMorningTrainingAsync(
-        [FromBody] SetPlanMorningTrainingRequest request) =>
-        GetResponseAsync(
-            () => planService.SetPlanMorningTrainingAsync(request),
-            result => new BaseResponse<SetPlanMorningTrainingResponse> { Result = result });
-
-    /// <summary>
     /// Запланировать дневную тренировку
     /// </summary>
     [HttpPost("set/day")]
