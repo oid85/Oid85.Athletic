@@ -11,8 +11,6 @@ public class AthleticContext(DbContextOptions<AthleticContext> options) : DbCont
     public DbSet<ExerciseTemplateEntity> ExerciseTemplateEntities { get; set; }
     public DbSet<TrainingEntity> TrainingEntities { get; set; }
     public DbSet<PlanEntity> PlanEntities { get; set; }
-    public DbSet<PressureEntity> PressureEntities { get; set; }
-    public DbSet<GlucoseEntity> GlucoseEntities { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
