@@ -22,7 +22,7 @@ namespace Oid85.Athletic.Application.Interfaces.Services
         /// <summary>
         /// Редактирование наименования тренировки
         /// </summary>
-        Task<EditTrainingNameResponse?> EditTrainingNameAsync(EditTrainingNameRequest request);
+        Task<EditTrainingNameResponse?> EditTrainingAsync(EditTrainingRequest request);
 
         /// <summary>
         /// Редактировать количество циклов в тренировке

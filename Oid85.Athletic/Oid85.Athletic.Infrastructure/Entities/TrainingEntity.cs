@@ -17,6 +17,12 @@ namespace Oid85.Athletic.Infrastructure.Entities
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
+        /// Описание
+        /// </summary>
+        [MaxLength(1000)]
+        public string? Description { get; set; } = string.Empty;
+
+        /// <summary>
         /// Циклы
         /// </summary>
         public int? Cycles { get; set; }

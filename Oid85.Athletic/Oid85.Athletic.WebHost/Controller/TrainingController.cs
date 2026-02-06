@@ -50,9 +50,9 @@ public class TrainingController(
     [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status500InternalServerError)]
     public Task<IActionResult> EditNameTrainingAsync(
-        [FromBody] EditTrainingNameRequest request) =>
+        [FromBody] EditTrainingRequest request) =>
         GetResponseAsync(
-            () => trainingService.EditTrainingNameAsync(request),
+            () => trainingService.EditTrainingAsync(request),
             result => new BaseResponse<EditTrainingNameResponse> { Result = result });
 
     /// <summary>

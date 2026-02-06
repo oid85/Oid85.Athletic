@@ -1,9 +1,9 @@
 ﻿namespace Oid85.Athletic.Core.Requests
 {
     /// <summary>
-    /// Запрос на редактирование наименования тренировки
+    /// Запрос на редактирование тренировки
     /// </summary>
-    public class EditTrainingNameRequest
+    public class EditTrainingRequest
     {
         /// <summary>
         /// Идентификатор
@@ -14,5 +14,10 @@
         /// Наименование
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Описание
+        /// </summary>
+        public string? Description { get; set; } = string.Empty;
     }
 }

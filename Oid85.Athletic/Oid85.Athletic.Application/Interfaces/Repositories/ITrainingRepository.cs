@@ -24,7 +24,8 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <param name="name">Наименование</param>
-        Task<Guid?> EditTrainingNameAsync(Guid id, string name);
+        /// <param name="description">Описание</param>
+        Task<Guid?> EditTrainingAsync(Guid id, string name, string description);
 
         /// <summary>
         /// Редактировать количество циклов в тренировке

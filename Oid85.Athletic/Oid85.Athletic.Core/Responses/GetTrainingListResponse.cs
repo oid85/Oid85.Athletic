@@ -27,6 +27,11 @@
         public string Name { get; set; } = string.Empty;
 
         /// <summary>
+        /// Описание
+        /// </summary>
+        public string? Description { get; set; } = string.Empty;
+
+        /// <summary>
         /// Общее количество повторений
         /// </summary>
         public int? TotalCountIterations { get; set; }

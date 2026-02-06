@@ -17,6 +17,7 @@ namespace Oid85.Athletic.Application.Services
             var model = new Training
             {
                 Name = request.Name,
+                Description = request.Description,
                 Cycles = 1,
                 StartCardioMinutes = 5,
                 FinishCardioMinutes = 5
@@ -49,9 +50,9 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task<EditTrainingNameResponse?> EditTrainingNameAsync(EditTrainingNameRequest request)
+        public async Task<EditTrainingNameResponse?> EditTrainingAsync(EditTrainingRequest request)
         {
-            var id = await trainingRepository.EditTrainingNameAsync(request.Id, request.Name);
+            var id = await trainingRepository.EditTrainingAsync(request.Id, request.Name, request.Description);
 
             var response = new EditTrainingNameResponse
             {
@@ -118,6 +119,7 @@ namespace Oid85.Athletic.Application.Services
                 {
                     Id = training.Id,
                     Name = training.Name,
+                    Description = training.Description,
                     Cycles = training.Cycles,
                     StartCardioMinutes = training.StartCardioMinutes,
                     FinishCardioMinutes = training.FinishCardioMinutes,
@@ -153,12 +155,13 @@ namespace Oid85.Athletic.Application.Services
                 Trainings = trainings
                 .Select(x =>
                 new TrainingListItemResponse
-                    {
-                        Id = x.Id,
-                        Name = x.Name,
-                        TotalCountIterations = x.TotalCountIterations,
-                        TotalWeight = x.TotalWeight
-                    })
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    TotalCountIterations = x.TotalCountIterations,
+                    TotalWeight = x.TotalWeight
+                })
                 .OrderBy(x => x.TotalWeight) 
                 .ToList(),
             };
