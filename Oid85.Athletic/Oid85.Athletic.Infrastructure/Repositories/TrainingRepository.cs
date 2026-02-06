@@ -148,6 +148,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             {
                 Id = entity.Id,
                 Name = entity.Name,
+                Description = entity.Description,
                 Cycles = entity.Cycles,
                 StartCardioMinutes = entity.StartCardioMinutes,
                 FinishCardioMinutes = entity.FinishCardioMinutes,
@@ -197,6 +198,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
             {
                 Id = entity.Id,
                 Name = entity.Name,
+                Description = entity.Description,
                 Cycles = entity.Cycles,
                 StartCardioMinutes = entity.StartCardioMinutes,
                 FinishCardioMinutes = entity.FinishCardioMinutes,
@@ -246,6 +248,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Description = x.Description,
                     Cycles = x.Cycles,
                     TotalCountIterations = x.TotalCountIterations,
                     TotalWeight = x.TotalWeight
