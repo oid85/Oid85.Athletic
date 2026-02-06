@@ -45,15 +45,15 @@ public class TrainingController(
     /// <summary>
     /// Редактировать наименование тренировки
     /// </summary>
-    [HttpPost("edit-name")]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(typeof(BaseResponse<EditTrainingNameResponse>), StatusCodes.Status500InternalServerError)]
-    public Task<IActionResult> EditNameTrainingAsync(
+    [HttpPost("edit")]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(BaseResponse<EditTrainingResponse>), StatusCodes.Status500InternalServerError)]
+    public Task<IActionResult> EditTrainingAsync(
         [FromBody] EditTrainingRequest request) =>
         GetResponseAsync(
             () => trainingService.EditTrainingAsync(request),
-            result => new BaseResponse<EditTrainingNameResponse> { Result = result });
+            result => new BaseResponse<EditTrainingResponse> { Result = result });
 
     /// <summary>
     /// Редактировать количество циклов в тренировке

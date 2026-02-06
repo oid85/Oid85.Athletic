@@ -50,11 +50,11 @@ namespace Oid85.Athletic.Application.Services
         }
 
         /// <inheritdoc/>
-        public async Task<EditTrainingNameResponse?> EditTrainingAsync(EditTrainingRequest request)
+        public async Task<EditTrainingResponse?> EditTrainingAsync(EditTrainingRequest request)
         {
             var id = await trainingRepository.EditTrainingAsync(request.Id, request.Name, request.Description);
 
-            var response = new EditTrainingNameResponse
+            var response = new EditTrainingResponse
             {
                 Id = id.Value
             };
