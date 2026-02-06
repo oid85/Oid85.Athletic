@@ -22,6 +22,11 @@
         public Guid Id { get; set; }
 
         /// <summary>
+        /// Количество проведенных тренировок
+        /// </summary>
+        public int Count { get; set; }
+
+        /// <summary>
         /// Наименование
         /// </summary>
         public string Name { get; set; } = string.Empty;

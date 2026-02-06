@@ -27,5 +27,10 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         /// Установить дневную тренировку
         /// </summary>
         Task<Guid?> SetDayTrainingAsync(DateOnly date, Guid trainingId);
+
+        /// <summary>
+        /// Получить все планы
+        /// </summary>
+        Task<List<Plan>?> GetAllPlansAsync();
     }
 }

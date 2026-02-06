@@ -80,6 +80,44 @@ namespace Oid85.Athletic.Infrastructure.Repositories
         }
 
         /// <inheritdoc/>
+        public async Task<List<Plan>?> GetAllPlansAsync()
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var entities = context.PlanEntities
+                .Include(x => x.DayTraining)          
+                .AsQueryable();
+
+            if (entities is null)
+                return null;
+
+            entities = entities.OrderBy(x => x.Date);
+
+            var filteredEntities = await entities.AsNoTracking().ToListAsync();
+
+            if (filteredEntities is null)
+                return null;
+
+            var result = entities
+                .Select(x => new Plan
+                {
+                    Id = x.Id,
+                    Date = x.Date,
+                    DayTraining = x.DayTraining == null ? null :
+                    new Training
+                    {
+                        Id = x.DayTraining.Id,
+                        Name = x.DayTraining.Name,
+                        TotalCountIterations = x.DayTraining.TotalCountIterations,
+                        TotalWeight = x.DayTraining.TotalWeight
+                    }
+                })
+                .ToList();
+
+            return result;
+        }
+
+        /// <inheritdoc/>
         public async Task<Guid?> RemoveTrainingAsync(Guid planId, Guid trainingId)
         {
             await using var context = await contextFactory.CreateDbContextAsync();

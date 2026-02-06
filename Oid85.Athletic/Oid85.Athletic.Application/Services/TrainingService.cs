@@ -8,7 +8,8 @@ namespace Oid85.Athletic.Application.Services
 {
     /// <inheritdoc/>
     public class TrainingService(
-        ITrainingRepository trainingRepository) 
+        ITrainingRepository trainingRepository,
+        IPlanRepository planRepository) 
         : ITrainingService
     {
         /// <inheritdoc/>
@@ -146,6 +147,7 @@ namespace Oid85.Athletic.Application.Services
         public async Task<GetTrainingListResponse?> GetTrainingListAsync(GetTrainingListRequest request)
         {
             var trainings = await trainingRepository.GetTrainingsAsync();
+            var plans = (await planRepository.GetAllPlansAsync())!.Where(x => x.DayTraining is not null).ToList();
 
             if (trainings is null)
                 return null;           
@@ -158,6 +160,7 @@ namespace Oid85.Athletic.Application.Services
                 {
                     Id = x.Id,
                     Name = x.Name,
+                    Count = plans.Count(p => p.DayTraining!.Id == x.Id),
                     Description = x.Description,
                     TotalCountIterations = x.TotalCountIterations,
                     TotalWeight = x.TotalWeight
