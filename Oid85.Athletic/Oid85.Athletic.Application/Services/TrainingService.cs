@@ -165,7 +165,7 @@ namespace Oid85.Athletic.Application.Services
                     TotalCountIterations = x.TotalCountIterations,
                     TotalWeight = x.TotalWeight
                 })
-                .OrderBy(x => x.TotalWeight) 
+                .OrderByDescending(x => x.Count) 
                 .ToList(),
             };
 
