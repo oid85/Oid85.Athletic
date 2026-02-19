@@ -43,6 +43,7 @@ namespace Oid85.Athletic.Application.Services
                         {
                             Id = x.DayTraining.Id,
                             Name = x.DayTraining.Name,
+                            Description = x.DayTraining.Description,
                             TotalCountIterations = x.DayTraining.TotalCountIterations,
                             TotalWeight = x.DayTraining.TotalWeight
                         }
