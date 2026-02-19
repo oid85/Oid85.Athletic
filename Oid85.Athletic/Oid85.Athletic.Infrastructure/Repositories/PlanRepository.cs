@@ -70,6 +70,7 @@ namespace Oid85.Athletic.Infrastructure.Repositories
                     {
                         Id = x.DayTraining.Id,
                         Name = x.DayTraining.Name,
+                        Description = x.DayTraining.Description,
                         TotalCountIterations = x.DayTraining.TotalCountIterations,
                         TotalWeight = x.DayTraining.TotalWeight
                     }
