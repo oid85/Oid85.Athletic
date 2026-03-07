@@ -25,5 +25,10 @@
         /// Наименование
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Кол-во тренировок с данным упражнением
+        /// </summary>
+        public int TrainingCount { get; set; } = 0;
     }
 }

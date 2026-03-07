@@ -257,5 +257,20 @@ namespace Oid85.Athletic.Infrastructure.Repositories
 
             return result;
         }
+
+        public async Task<int> GetCountTrainingByExerciseTemplateIdAsync(Guid exerciseTemplateId)
+        {
+            await using var context = await contextFactory.CreateDbContextAsync();
+
+            var exerciseEntinies = await context.ExerciseEntities
+                .Where(x => x.ExerciseTemplate.Id == exerciseTemplateId)
+                .Include(x => x.Training)
+                .AsNoTracking()
+                .ToListAsync();
+
+            int countTraining = exerciseEntinies.Select(x => x.Training.Id).Distinct().Count();
+
+            return countTraining;
+        }
     }
 }

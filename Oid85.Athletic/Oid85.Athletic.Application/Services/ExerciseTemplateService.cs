@@ -8,7 +8,8 @@ namespace Oid85.Athletic.Application.Services
 {
     /// <inheritdoc/>
     public class ExerciseTemplateService(
-        IExerciseTemplateRepository exerciseTemplateRepository) 
+        IExerciseTemplateRepository exerciseTemplateRepository,
+        ITrainingRepository trainingRepository) 
         : IExerciseTemplateService
     {
         /// <inheritdoc/>
@@ -88,7 +89,15 @@ namespace Oid85.Athletic.Application.Services
                     }).ToList()
             };
 
+            foreach (var exerciseTemplate in response.ExerciseTemplates)
+            {
+                exerciseTemplate.TrainingCount = await GetExerciseTemplateTrainingCountAsync(exerciseTemplate.Id);
+            }
+
             return response;
         }
+
+        private async Task<int> GetExerciseTemplateTrainingCountAsync(Guid exerciseTemplateId) => 
+            await trainingRepository.GetCountTrainingByExerciseTemplateIdAsync(exerciseTemplateId);
     }
 }

@@ -78,5 +78,10 @@ namespace Oid85.Athletic.Application.Interfaces.Repositories
         /// Получить список тренировок
         /// </summary>    
         Task<List<Training>?> GetTrainingsAsync();
+
+        /// <summary>
+        /// Получить количество тренировок по Id шаблона упражнения
+        /// </summary>
+        Task<int> GetCountTrainingByExerciseTemplateIdAsync(Guid exerciseTemplateId);
     }
 }
